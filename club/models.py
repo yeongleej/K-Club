@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import Member
+from accounts.models import Member
 from datetime import datetime
 
 # Create your models here.

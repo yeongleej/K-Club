@@ -1,6 +1,6 @@
 from django.db import models
 from club.models import Club
-from account.models import Member
+from accounts.models import Member
 # Create your models here.
 
 class Chat(models.Model):

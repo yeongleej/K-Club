@@ -4,6 +4,7 @@ from datetime import datetime
 
 # Create your models here.
 class Club(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=1000, blank=True)
     image_url = models.ImageField(blank=True)
@@ -15,6 +16,7 @@ class Club(models.Model):
         db_table = 'club'
 
 class Article(models.Model):
+    id = models.AutoField(primary_key=True)
     member_id = models.ForeignKey(Member, on_delete=models.CASCADE)
     club_id = models.ForeignKey(Club, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
@@ -30,6 +32,7 @@ class Article(models.Model):
         db_table = 'article'
 
 class Todo(models.Model):
+    id = models.AutoField(primary_key=True)
     content = models.TextField(max_length=1000, blank=True)
     club_id = models.ForeignKey(Club, on_delete=models.CASCADE)
     
@@ -37,6 +40,7 @@ class Todo(models.Model):
         db_table = 'Todo'
 
 class Schedule(models.Model):
+    id = models.AutoField(primary_key=True)
     start_at = models.DateField(default=datetime.now)
     finish_at = models.DateField(default=datetime.now)
     content = models.TextField(max_length=1000, blank=True)

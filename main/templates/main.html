@@ -19,7 +19,12 @@
     {% if member %}
     <div>
         {{member.name}}
+        {{member.id}}
     </div>
+    {% endif %}
+    <br><br>
+    {% if error %}
+    {{error}}
     {% endif %}
 </body>
 </html>

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, AbstractUser
 
 # Create your models here.
 class Member(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     student_num = models.IntegerField(default=0)

@@ -158,9 +158,21 @@ CORS_ALLOW_HEADERS = (
     'x-requested-with',
 )
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
 #EMAIL_HOST = 'smtp.gmail.com' 		     # 메일 호스트 서버
 #EMAIL_PORT = '587' 			             # 서버 포트
 #EMAIL_HOST_USER = '@gmail.com' 	         # 우리가 사용할 Gmail
-#EMAIL_HOST_PASSWORD = ''		         # 우리가 사용할 Gmail p
+#EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")		         # 우리가 사용할 Gmail p
 #EMAIL_USE_TLS = True			         # TLS 보안 설정
 #EFAULT_FROM_EMAIL = EMAIL_HOST_USER	 # 응답 메일 관련 설정
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'abcd23589534@gmail.com'
+EMAIL_HOST_PASSWORD = 'hqybqivwvhabzaou'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+SERVER_EMAIL = 'abcd23589534@gmail'
+DEFAULT_FROM_MAIL = 'abcd23589534'

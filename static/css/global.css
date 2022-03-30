@@ -1,0 +1,16 @@
+.gap-box{
+    background: #FFF;
+    height: 10px;
+}
+
+.title-fff{
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.border-fff{
+    border: 2px solid #4D77FF;
+    border-radius: 5px;
+}
+

@@ -1,3 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+    <main>
+        <div class="main-container">
+            <div class="temp-box box-one">
+                <div class="title-fff">전체 공지사항 +</div>
+                <div class="border-fff"></div>
+                <div class="gap-box"> </div>
+                <div class="title-fff">진행중인 이벤트 +</div>
+                <div class="border-fff"></div>    
+            </div>
+            <div class="temp-box box-two">
+                <div class="title-fff">커뮤니티 인기글 +</div>
+                <div class="border-fff"></div>
+            </div>
+
+            <div class="temp-box box-three">
+                <div class="title-fff"></div>
+                <div class="border-fff"></div>
+                <div class="gap-box"> </div>
+                <div class="title-fff">행사일정 +</div>
+                <div class="border-fff"></div>
+            </div>
+        </div>
+    </main>
+    <br><br>
+    <div>
+        <h3><a href="{% url 'accounts:signup' %}">회원가입</a></h3>
+        <h3><a href="{% url 'accounts:login' %}">로그인</a></h3>
+        <h3><a href="{% url 'accounts:logout' %}">로그아웃</a></h3>
+    </div>
+    <br><br>
+    {% if member %}
+    <div>
+        {{member.name}}
+        {{member.id}}
+    </div>
+    {% endif %}
+    <br><br>
+    {% if error %}
+    {{error}}
+    {% endif %}
+
+{% endblock %}
+
+<!--
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -27,4 +75,4 @@
     {{error}}
     {% endif %}
 </body>
-</html>
+</html> -->

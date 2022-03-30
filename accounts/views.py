@@ -22,7 +22,7 @@ def signup(request):
                 username=request.POST['username'],
                 password=request.POST['password1']
             )
-            user.is_active = False
+            #user.is_active = True
             user.save()
 
             # member 정보 입력
@@ -42,7 +42,7 @@ def signup(request):
                 'activation_email.html',
                 {'user': user,
                 'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
                 'token': account_activation_token.make_token(user),
                 }
             )
@@ -60,20 +60,16 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        print(user)
         if user is not None:
+            mem = Member.objects.get(user=user)
+            if mem.is_auth == False:
+                return render(request, 'login.html', {'error':'계정이 활성화 되지 않았습니다. 계정에 등록된 학교 이메일 주소를 인증해 주세요.'})
+            
             auth.login(request, user)
             request.session['user'] = user.id
             return redirect('/')
-        # elif user.is_active == False:
-        #     return render(request, 'login.html', {'error':'계정이 활성화 되지 않았습니다. 계정에 등록된 학교 이메일 주소를 인증해 주세요.'})
         else:
-            context = {
-                'error1':'아이디 혹은 비밀번호가 잘못되었습니다.',
-                'error2':'계정이 활성화 되지 않았습니다. 계정에 등록된 학교 이메일 주소를 인증해 주세요.'
-            }
-            return render(request, 'login.html', context)
-
+            return render(request, 'login.html', {'error':'아이디 혹은 비밀번호가 잘못되었습니다.'})
     else:
         return render(request, 'login.html')
 
@@ -85,16 +81,20 @@ def logout(request):
 # 계정 활성화 view(토큰을 통해 인증)
 def activate(request, uidb64, token):
     try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
+        #uid = force_str(urlsafe_base64_decode(uidb64))
+        uid = urlsafe_base64_decode(uidb64).decode()
         user = User.objects.get(pk=uid)
+        a_mem = Member.objects.get(user=user)
     except(TypeError, ValueError, OverflowError, User.DoesNotExsit):
-        user = None
+        #user = None
+        a_mem.is_auth = False
 
     if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
+        #user.is_active = True
+        #user.save()
+        a_mem.is_auth = True
+        a_mem.save()
         auth.login(request, user)
         return redirect('/')
     else:
-        #return render(request, 'main.html', {'error':'계정 활성화 오류'})
-        return redirect('main:index', {'error':'계정 활성화 오류'}) 
+        return render(request, 'main/main.html', {'error':'계정 활성화 오류'})

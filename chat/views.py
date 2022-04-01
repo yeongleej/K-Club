@@ -7,7 +7,7 @@ from chat.models import *
 
 # Create your views here.
 
-def index(request):
+def chat_main(request):
     user_id = request.session.get('user')
     if user_id:
         user = User.objects.get(pk=user_id)

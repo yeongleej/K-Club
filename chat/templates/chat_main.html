@@ -1,16 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Rooms</title>
-</head>
-<body>
-    What chat room would you like to enter?<br/>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}chatMain{% endblock %}
+{% block content %}
+
+    <!-- What chat room would you like to enter?<br/>
     <input id="room-name-input" type="text" size="100"/>
     <input id="username-input" type="hidden" value="{{username}}">
-    <input id="room-name-submit" type="button" value="Enter"/>
+    <input id="room-name-submit" type="button" value="Enter"/> -->
+
+    <div class="login-form">
+        <form method="POST">
+        {% csrf_token %}
+          <input type="text" id="room-name-input" class="text-field" placeholder="채팅방 이름을 입력하시오." >
+          <input id="username-input" type="hidden" value="{{username}}">
+          <input id="room-name-submit" type="button" value="Enter" class="submit-btn1">
+        </form>
+        <br><br>
+        {% if error %}
+        {{error}}
+        {% endif %}
+    
+    </div>
 
     <script>
         document.querySelector('#room-name-input').focus();
@@ -26,5 +36,7 @@
             window.location.pathname = '/chat/' + roomName + '/';
         };
     </script>
-</body>
-</html>
+
+{% endblock %}
+
+

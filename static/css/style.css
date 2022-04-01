@@ -8,13 +8,27 @@
     color: #000;
 }
 
+a{
+    text-decoration: none !important;
+}
+
+#wrap{
+    height: auto;
+    min-height: 100%;
+    position: relative;
+}
+
+.nav{
+    padding-bottom: 30px;
+}
+
+
 .menubar{
     display: flex;
     width: 100%;
     padding-left: 160px;
     background-color: #56BBF1;
     margin-bottom: 20px;
-
 }
 
 .logo-banner{
@@ -37,17 +51,18 @@
     float: left;
     text-align: center;
     padding: 0px 17px 0px 20px;
-    width: 160px;
+    width: 166px;
     font-size: 24px;;
     font-weight: bold;
 }
 
 .menu > li > ul{
-    width: 125px;
+    width: 130px;
     display: none;
     position: absolute;
     font-size: 17px;
     background: #56BBF1;
+    z-index: 10;
 }
 
 .menu > li:hover > ul{
@@ -69,16 +84,18 @@
     text-align: center;
     border: 1px solid #F2FA5A;
     background: #F2FA5A;
-    margin-right: 15px;
+    margin-right: 18px;
     
     font-size: 20px;
     font-weight: bold;
     text-align: center;
     color: #56BBF1;
 }
+
 main{
     min-height: 1080px;
 }
+
 .main-container{
     width: 1200px;
     margin: auto;
@@ -148,12 +165,12 @@ main{
     flex: 0.3;
 }
 .box-three > div:nth-child(2){
-    width: 100%;
+    width: 80%;
     flex: 4;
 }
 .box-three > div:nth-child(3){
     width: 100%;
-    flex: 0.5;
+    flex: 0.6;
 }
 .box-three > div:nth-child(4){
     width: 100%;
@@ -164,19 +181,141 @@ main{
     flex: 4;
 }
 
+.myPage-main{
+    margin-top: 5%;
+    margin-right: 5%;
+    font-size: 1.7rem;
+    line-height: 0.85rem;
+    font-weight: bold;
+    text-align: right;
+}
+
+.inform-main{
+    text-decoration: none;
+    margin-top: 3%;
+    text-align: right;
+}
+
+.inform2-main{
+    text-decoration: underline;
+    margin-top: 7%;
+    color: #56BBF1;
+}
+
+.main-container-chat{
+    width: 60%;
+    margin-left: 25%;
+    display: grid;
+    grid-template-columns: 85px 380px 380px;
+    grid-template-rows: 720px;
+    gap: 1%;
+}
+
+.chat-box{
+    position: relative;
+    background: #666666;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    text-align: center;
+    z-index: -1;
+}
+
+.box-0001{
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+.box-0001 > div:first-child{
+    width: 100%;
+    flex: 9;
+}
+.box-0001 > div:nth-child(2){
+    width: 100%;
+    flex: 1;
+}
+
+.setHover{
+    display: none;
+    position: absolute;
+    font-size: 5px;
+    border-radius: 3px;
+    padding: 2% 5% 2% 0%;
+    background: #000;
+    color: #FFF;
+    z-index: 5;
+}
+
+.clunSetBtn > tr:hover > td > li{
+    display: block;
+}
+
+#clubFriends, #addMore, #clubSet, #clubUser{
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(103deg) brightness(99%) contrast(105%);
+}
+
+#clubSet, #clubUser{
+    margin-top: 220%;
+    width: 80%;
+}
+
+#click1st, #click2st, #click3st, #click4st, #click5st, #addMore{
+    margin-top: 20%;
+    width: 65%;
+}
+
+.box-0002{   
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+.box-0002 > div:first-child{
+    width: 100%;
+    flex: 9;
+}
+.box-0002 > div:nth-child(2){
+    width: 100%;
+    flex: 0.2;
+}
+.box-0002 > div:nth-child(3){
+    width: 100%;
+    flex: 0.8;
+}
+
+.box-0003{
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+.box-0003 > div:first-child{
+    width: 100%;
+    flex: 9;
+}
+.box-0003 > div:nth-child(2){
+    width: 100%;
+    flex: 0.2;
+}
+.box-0003 > div:nth-child(3){
+    width: 100%;
+    flex: 0.8;
+}
+
 footer{
-    position: fixed;
+    position: absolute !important;
     width: 100%;
     height: 100px;
+    padding: 0 25px;
     bottom: 0;
+    
     background-color: #56BBF1;
-    opacity: 0.6;
+    opacity: 0.8;
     display: block;
 }
 
 .bottom{
-    position: relative;
     text-align : right;
     display: block;
-    margin-right: 20%;
+    margin-top: 6px;
+    margin-right: 18%;
 }
+

@@ -1,18 +1,64 @@
 {% extends "base.html" %}
-{% block title %}{% endblock %}
+{% load static %}
+{% block title %}mainPage{% endblock %}
 {% block content %}
 
+    {% if request.user.is_authenticated %}
     <main>
         <div class="main-container">
             <div class="temp-box box-one">
-                <div class="title-fff">전체 공지사항 +</div>
+                <div class="title-fff"><a href="#">전체 공지사항 +</a></div>
                 <div class="border-fff"></div>
-                <div class="gap-box"> </div>
-                <div class="title-fff">진행중인 이벤트 +</div>
+                <div class="gap-box"></div>
+                <div class="title-fff"><a href="#">진행중인 이벤트 +</a></div>
                 <div class="border-fff"></div>    
             </div>
             <div class="temp-box box-two">
-                <div class="title-fff">커뮤니티 인기글 +</div>
+                <div class="title-fff"><a href="#">커뮤니티 인기글 +</a></div>
+                <div class="border-fff"></div>
+            </div>
+            <div class="temp-box box-three">
+                <div class="title-fff"></div>
+                <div class="border-fff">
+                    <ul class="myPage-main">
+                        <li class="inform-main">
+                            {{member.name}} 님, 안녕하세요!<img src="{% static 'img/straightpointline.png' %}" style="margin: 0 0rem 0 1rem;">
+                            <a href="#"><span style="text-decoration : underline; margin-left: 2%;">내정보</span><img src="{% static 'img/informlock.png' %}"></src></a>
+                        </li>
+                        <li class="inform-main"><a href="#"><img src="{% static 'img/mail.png' %}" style="margin-right: 3%;">
+                            <span style="text-decoration: underline">쪽지</span>
+                            <span style="text-decoration: none;"> 0</span></src></a>
+                        </li>
+                        <li class="inform2-main"><a href="#">나의 동아리 보기</a></li>
+                        <li class="inform2-main"><a href="{% url 'chat:chat_main' %}">TALK방 참여</a></li>
+                    </ul>
+                </div>
+                <div class="gap-box"></div>
+                <div class="title-fff"><a href="#">행사일정 +</a></div>
+                <div class="border-fff" style="border: none;">
+                    <div id="calendar">
+                        <div id="calendar_header"><i class="icon-chevron-left" style="font-weight: bold; font-size: 28px;"> < </i>
+                            <h1></h1><i class="icon-chevron-right" style="font-weight: bold; font-size: 28px;"> > </i>
+                        </div>
+                        <div id="calendar_weekdays"></div>
+                        <div id="calendar_content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% else %}
+    <main>
+        <div class="main-container">
+            <div class="temp-box box-one">
+                <div class="title-fff" style=" text-decoration: none;"><a href="#">전체 공지사항 +</a></div>
+                <div class="border-fff"></div>
+                <div class="gap-box"> </div>
+                <div class="title-fff"><a href="#">진행중인 이벤트 +</a></div>
+                <div class="border-fff"></div>    
+            </div>
+            <div class="temp-box box-two">
+                <div class="title-fff"><a href="#">커뮤니티 인기글 +</a></div>
                 <div class="border-fff"></div>
             </div>
 
@@ -20,59 +66,20 @@
                 <div class="title-fff"></div>
                 <div class="border-fff"></div>
                 <div class="gap-box"> </div>
-                <div class="title-fff">행사일정 +</div>
-                <div class="border-fff"></div>
+                <div class="title-fff"><a href="#">행사일정 +</a></div>
+                <div class="border-fff" style="border: none;">
+                    <div id="calendar">
+                        <div id="calendar_header"><i class="icon-chevron-left" style="font-weight: bold; font-size: 28px;"> < </i>
+                            <h1></h1><i class="icon-chevron-right" style="font-weight: bold; font-size: 28px;"> > </i>
+                        </div>
+                        <div id="calendar_weekdays"></div>
+                        <div id="calendar_content"></div>
+                      </div>
+                </div>
             </div>
         </div>
     </main>
-    <br><br>
-    <div>
-        <h3><a href="{% url 'accounts:signup' %}">회원가입</a></h3>
-        <h3><a href="{% url 'accounts:login' %}">로그인</a></h3>
-        <h3><a href="{% url 'accounts:logout' %}">로그아웃</a></h3>
-    </div>
-    <br><br>
-    {% if member %}
-    <div>
-        {{member.name}}
-        {{member.id}}
-    </div>
     {% endif %}
-    <br><br>
-    {% if error %}
-    {{error}}
-    {% endif %}
+
 
 {% endblock %}
-
-<!--
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>main</title>
-</head>
-<body>
-    <h2>메인페이지</h2>
-    <br><br>
-    <div>
-        <h3><a href="{% url 'accounts:signup' %}">회원가입</a></h3>
-        <h3><a href="{% url 'accounts:login' %}">로그인</a></h3>
-        <h3><a href="{% url 'accounts:logout' %}">로그아웃</a></h3>
-    </div>
-    <br><br>
-    {% if member %}
-    <div>
-        {{member.name}}
-        {{member.id}}
-    </div>
-    {% endif %}
-    <br><br>
-    {% if error %}
-    {{error}}
-    {% endif %}
-</body>
-</html> -->

@@ -1,21 +1,25 @@
-<div class="wrapper">
-    <div style="text-align: center;">
-        <h1>로그인</h1>
-        <form method="POST">
-            {% csrf_token %}
-            아이디:
-            <br>
-            <input name="username" type="text">
-            <br>
-            비밀번호:
-            <br>
-            <input name="password" type="password">
-            <br><br>
-            <input type="submit" class="btn btn-primary" value="Login">
-        </form>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}login{% endblock %}
+{% block content %}
+
+<div class="login-form">
+    <form method="POST">
+    {% csrf_token %}
+      <input type="text" name="username" class="text-field" placeholder="아이디" >
+      <input type="password" name="password" class="text-field" placeholder="비밀번호">
+      <input type="submit" value="로그인" class="submit-btn1">
+      <input type="submit" value="회원가입" class="submit-btn2">
+    </form>
+ 
+    <div class="links">
+      <a href="#">비밀번호를 잊어버리셨나요?</a>
     </div>
     <br><br>
     {% if error %}
     {{error}}
     {% endif %}
+
 </div>
+
+{% endblock %}

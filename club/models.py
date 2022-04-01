@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import Member
+#import accounts.models
 from datetime import datetime
 
 # Create your models here.
@@ -17,7 +17,7 @@ class Club(models.Model):
 
 class Article(models.Model):
     id = models.AutoField(primary_key=True)
-    member_id = models.ForeignKey(Member, on_delete=models.CASCADE)
+    member_id = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
     club_id = models.ForeignKey(Club, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=1000, blank=True)

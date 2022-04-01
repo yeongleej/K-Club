@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 
+
 # Create your models here.
 class Member(models.Model):
     id = models.AutoField(primary_key=True)
@@ -11,6 +12,7 @@ class Member(models.Model):
     #password = models.CharField(max_length=255)
     phone_num = models.CharField(max_length=255)
     is_auth = models.BooleanField(default=False)
+    room = models.CharField(max_length=100, null=True, blank=True) # 가장 최근의 채팅방
 
     def __str__(self):
         return self.name

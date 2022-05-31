@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Application{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/apply.css' %}">
+    {% if error %}
+    <script type="text/javascript">alert("올바른 정보를 입력하세요.")</script>
+    {% endif %}
+    <div class="app-form">
+        <form method="post">
+        {% csrf_token %}
+        <ul>
+        <p class = "app-title">동아리 가입 신청서</class>
+        </ul>
+       <li>
+        <p class = "app-contents1">희망 동아리명 : {{cName}} </class>     
+        <p class = "app-contents2">이름 : <input type = "text "size = "10" style="margin-right: 40px; " value="{{member.name}}" name="name"></class> 학번 : <input type = "text "size = "10" value="{{member.student_num}}" name="student_num"></class>
+        <p class = "app-contents2">학과 : <input type = "text "size = "10" style="margin-right: 40px; " value="{{member.major}}" name="major"></class> 휴대전화 : <input type = "text "size = "10" value="{{member.phone_num}}" name="phone_num"></class>    
+        
+        </li>
+
+        <!-- <a href="#" class="btn" style="border-radius: 0%;">신청</a> -->
+        <input class="app-btn" style="border-radius: 0%;" type="submit" value="신청">
+        <br>
+        </form>
+     
+        
+    
+    </div>
+
+{% endblock %}

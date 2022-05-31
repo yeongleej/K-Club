@@ -3,6 +3,8 @@
 {% block title %}login{% endblock %}
 {% block content %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+
 <div class="login-form">
     <form method="POST">
     {% csrf_token %}

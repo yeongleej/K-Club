@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}freeBoard Index{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+    <div class="board-form">
+        <ul>
+            <p class = "board-title">커뮤니티 > &nbsp; 홍보게시판</p>
+            <hr>
+        </ul>
+        {% if request.user.is_authenticated %}
+        <a class="write-btn" href="{% url 'club:board_create' topic=topic  %}">글쓰기</a>
+        {% endif %}
+        <br><br>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">제목</th>
+                <th scope="col">글쓴이</th>
+                <th scope="col">작성일</th>
+                <th scope="col">조회수</th>
+                <th scope="col">추천수</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% if boards != None %}
+                {% for board in boards %}
+                    <tr>
+                        <td><a href="#">{{board.title}}</a></td>
+                        <td>{{board.member.name}}</td>
+                        <td>{{board.written_at}}</td>
+                        <td>{{board.views}}</td>
+                        <td>{{board.likes}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+          </table>
+
+
+    </div>
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">커뮤니티</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:freeBoard_index' %}">자유게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="{% url 'club:infoBoard_index' %}">정보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="{% url 'club:promoBoard_index' %}">홍보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+
+{% endblock %}

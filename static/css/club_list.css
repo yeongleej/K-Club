@@ -1,0 +1,27 @@
+.app-form {
+width: 500px;
+height: 350px;
+/* background-color: #777777; */
+/* border: 2px solid #4D77FF; */
+border-radius: 20px;
+
+margin-right: auto;
+margin-left: auto;
+margin-top: 50px;
+padding: 20px;
+text-align: center;
+
+}
+.app-title {
+font-size: 20px;
+border: none;
+text-underline-position:under;
+font-weight:bold;
+text-align: left;
+margin-bottom: 70px;
+color: #337ab7;
+
+}
+td{
+text-align: left;
+}

@@ -8,7 +8,11 @@
     <input id="username-input" type="hidden" value="{{username}}">
     <input id="room-name-submit" type="button" value="Enter"/> -->
 
-    <div class="login-form">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <div class="bubble">
+        <p class="bubble-head">K-TALK</p>
+    </div>
+    <div class="login-form" style="margin-top: 40px;">
         <form method="POST">
         {% csrf_token %}
           <input type="text" id="room-name-input" class="text-field" placeholder="채팅방 이름을 입력하시오." >

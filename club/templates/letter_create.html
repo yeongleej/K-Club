@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Board Detail{% endblock %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    {% if error %}
+    <script type="text/javascript">alert("사용자가 없습니다.")</script>
+    {% endif %}
+    <div class="letter-create-form">
+        <ul style="display: flex;width: 100%; text-align: left;">
+            <li style="margin-left: 0; margin-right: 20px;"><img src="{% static 'img/mail.png' %}"width = "60" height="60"></li>
+            <li style="margin-left: 0;"><h3 class = "board-title">쪽지쓰기</h3></li>
+        </ul>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <table class="table table-striped">
+                <tbody>
+                  <tr>
+                    <td>제목</td>
+                    <td><input type="text" name="title" class="form-control" style="width: 530px; border-color: #28A0FF;"></td>
+                  </tr>
+                  <tr>
+                    <td>작성자</td>
+                    <td>{{member.name}}</td>
+                  </tr>
+                  <tr>
+                    <td>받는사람</td>
+                    <td><input type="text" name="to_member" class="form-control" style="width: 530px; border-color: #28A0FF;"></td>
+                  </tr>
+                  <tr>
+                    <td>참조</td>
+                    <td>
+                        <select name="reference_id" class="form-select" aria-label="Default select example">
+                            <option selected value="0">Select reference letter</option>
+                            {% for m_letter in my_letters %}
+                            <option value="{{m_letter.id}}">{{m_letter.title}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>내용</td>
+                    <td><textarea cols="75" rows="10" name="content" class="form-control" style="border-color: #28A0FF;"></textarea></td>
+                  </tr>
+                </tbody>
+            </table>
+            
+            <input class="write-btn" type="submit" value="보내기" style="width: 80px; margin-left: 600px;">
+        </form>
+    </div>
+
+{% endblock %}

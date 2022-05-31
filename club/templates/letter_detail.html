@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}letter Detail{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    <div class="board-form">
+        <div class="detail-form">
+            <ul class="detail-header">
+                <li class="detail-title"><h3 style="margin: 0; font-weight: bold;">{{letter.title}}</h3></li>
+                <li><p>{{letter.written_at}}</p></li>
+            </ul>
+            <ul class="detail-main">
+                <li class="detail-main-content"><img src="{% static 'img/people.png' %}" width = "20" height="20"></li>
+                <li class="detail-main-content"><p>보낸사람 : {{letter.from_member_name}}</p></li>
+                <li class="detail-main-content"><p>&nbsp;| &nbsp;&nbsp;&nbsp;받는사람 : {{letter.to_member_name}}</p></li>
+                {% for rLetter in all_letters %}
+                {% if reference_letter_id != 0 and rLetter.id == reference_letter_id %}
+                <li style="margin-right: 15px;"><p>참조: {{rLetter.title}}</p></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <ul>
+                <li class="detail-main-content"><p>{{letter.content}}</p></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="detail-bottom">
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:letter_delete' id=letter.id %}">삭제</a></li>
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:letter_list' %}">목록</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+{% endblock %}

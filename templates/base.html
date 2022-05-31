@@ -2,14 +2,12 @@
 <html lang="ko">
 {% include 'head.html' %}
 <body>
+    {% include 'header.html' %}
     <div class="root">
-        {% include 'header.html' %}
-
         {% block content %}
         <!--block을 extends한 파일-->
         {% endblock %}
-
-        {% include 'footer.html' %}
     </div>
+    {% include 'footer.html' %}
 </body>
 </html>

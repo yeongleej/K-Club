@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Application List{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/approve.css' %}">
+    <div class="approve-form">
+        
+        <form method="post">
+        {% csrf_token %}
+         <ul>
+        <p class = "approve-title">동아리 요청 확인 </p>
+        </ul>
+       
+        <p class = "approve-contents">동아리명 : {{cName}} </p>   
+        <p class = "approve-contents">신청자리스트 :  {{appsLen}} 명  </p>
+        
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">이름</th>
+                <th scope="col">학과</th>
+                <th scope="col">학번</th>
+                <th scope="col">휴대전화</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for app in applications %}
+              <tr>
+                <td>{{app.member.name}}</td>
+                <td>{{app.member.major}}</td>
+                <td>{{app.member.student_num}}</td>
+                <td>{{app.member.phone_num}}</td>
+                <td>
+                    <input type="hidden" name="student_num" value="{{app.member.student_num}}">
+                    <input class="approve-btn1" type="submit" name="result" value="승인"> <input class="approve-btn2" type="submit" name="result" value="거부">
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        
+        
+        </form>
+     
+        
+
+    </div>
+
+{% endblock %}

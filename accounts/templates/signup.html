@@ -3,6 +3,10 @@
 {% load static %}
 {% block content %}
 
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}"> -->
+<style>
+
+</style>
 <div class="signup-form">
     <form method="POST">
         {% csrf_token %}
@@ -12,10 +16,15 @@
       <input type="password" name="password2" class="text-field" placeholder="비밀번호 재확인"> 
       <input name="email" type="email" class="text-field" placeholder="이메일">
       <input type="text" name="name" class="text-field" placeholder="이름">
+      <input type="text" name="major" class="text-field" placeholder="학과">
       <input type="text" name="student_num" class="text-field" placeholder="학번">
       <input type="text" name="phone_num" class="text-field" placeholder="휴대전화">
       <input type="submit" value="회원가입하기" class="submit-btn">
     </form>
+    <br><br>
+    {% if error %}
+    {{error}}
+    {% endif %}
 </div>
 
 {% endblock %}

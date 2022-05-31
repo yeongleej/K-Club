@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Board Detail{% endblock %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    <div class="board-form">
+    {% if board.topic == 'free' %}
+    <ul>
+        <p class = "board-title">커뮤니티 > &nbsp; 자유게시판</p>
+        <hr>
+    </ul>
+    {% elif board.topic == 'info' %}
+    <ul>
+        <p class = "board-title">커뮤니티 > &nbsp; 정보게시판</p>
+        <hr>
+    </ul>
+    {% elif board.topic == 'promo' %}
+    <ul>
+        <p class = "board-title">커뮤니티 > &nbsp; 홍보게시판</p>
+        <hr>
+    </ul>
+    {% elif board.topic == 'notice' %}
+    <ul>
+        <p class = "board-title">공지사항</p>
+        <hr>
+    </ul>
+    {% endif %}
+        <div  class="create-form">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="topic" value="{{topic}}"> 
+            <ul class="create-input">
+                <li class="cInput"><p class="board-input-title">제목</p></li>
+                <li><input type="text" name="title" class="form-control" style="width: 530px; border-color: #28A0FF;" value="{{board.title}}"></li>
+            </ul>
+            <hr style="height: 1px;">
+            <ul class="create-input">
+                <li class="cInput" style="width: 180px;" ><p class="board-input-title">동아리 명</p></li>
+                <li class="cInput">
+                    {% for club in clubs %}
+                    {% if board.topic == 'notice' %}
+                        {% if board.club_name == club.name and club.is_manager %}
+                        <input type="radio" name="club" id="club{{ forloop.counter }}" value="{{ club.name }}" checked="checked">
+                        <label for="club{{ forloop.counter }}">{{ club.name }}</label>
+                        {% elif club.is_manager %}
+                        <input type="radio" name="club" id="club{{ forloop.counter }}" value="{{ club.name }}">
+                        <label for="club{{ forloop.counter }}">{{ club.name }}</label>
+                        {% endif %}
+                    {% else %}
+                        {% if board.club_name == club.name %}
+                        <input type="radio" name="club" id="club{{ forloop.counter }}" value="{{ club.name }}" checked="checked">
+                        {% else %}
+                        <input type="radio" name="club" id="club{{ forloop.counter }}" value="{{ club.name }}">
+                        {% endif %}
+                        <label for="club{{ forloop.counter }}">{{ club.name }}</label>
+                    {% endif %}
+                    {% endfor %}
+                </li>
+            </ul>
+            <hr style="height: 1px;">
+            <ul class="create-input">
+                <li class="cInput" style="margin-right: 50px;"><p class="board-input-title">작성자</p></li>
+                <li class="cInput" ><p class="board-input-title">{{member.name}}</p></li>
+            </ul>
+            <hr style="height: 1px;">
+            <ul class="create-input"> 
+                <li class="cInput" style="width: 60px;"><p class="board-input-title">내용</p></li>
+                <li><textarea cols="75" rows="10" name="content" class="form-control" style="border-color: #28A0FF;">{{board.content}}</textarea> </li>
+            </ul>
+            <input class="write-btn" type="submit" value="수정하기" style="width: 80px; margin-left: 600px;">
+        </form>
+        </div>
+    </div>
+    {% if board.topic == 'notice' %}
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">공지사항</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:notice_index' %}">공지사항</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+    {% else %}
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">커뮤니티</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:freeBoard_index' %}">자유게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="{% url 'club:infoBoard_index' %}">정보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="{% url 'club:promoBoard_index' %}">홍보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+    {% endif %}
+
+{% endblock %}

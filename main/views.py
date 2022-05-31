@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from accounts.models import *
+from club.models import *
 # Create your views here.
 
 def index(request):
@@ -8,5 +9,7 @@ def index(request):
     if user_id:
         user = User.objects.get(pk=user_id)
         member = Member.objects.get(user=user)
-        return render(request, 'main.html', {'member':member})
+        letters = Letter.objects.filter(to_member_name=member.name, is_read=False)
+        print(letters)
+        return render(request, 'main.html', {'member':member, 'letters_num':len(letters)})
     return render(request, 'main.html')

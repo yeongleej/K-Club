@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Club Member Management{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/approve.css' %}">
+    <div class="approve-form">
+        
+        <form method="post">
+        {% csrf_token %}
+         <ul>
+        <p class = "approve-title">동아리원 관리</p>
+        </ul>
+       
+        <p class = "approve-contents">동아리명 : {{cName}} </p>   
+        <p class = "approve-contents">동아리원 :  {{clubsLen}} 명  </p>
+        
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">이름</th>
+                <th scope="col">학과</th>
+                <th scope="col">학번</th>
+                <th scope="col">휴대전화</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for c in clubs %}
+              <tr>
+                {% if c.is_manager %}
+                <td><img src="{% static 'img/star.png' %}" width = "20" height="20" ></td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td>{{c.member.name}}</td>
+                <td>{{c.member.major}}</td>
+                <td>{{c.member.student_num}}</td>
+                <td>{{c.member.phone_num}}</td>
+                <td>
+                    <input type="hidden" name="club_id" value="{{c.id}}"> 
+                </td>
+                {% if c.is_manager == False %}
+                <td><input class="approve-btn1" type="submit" name="result" value="관리자 권한 부여"></td>
+                {% else %}
+                <td><input class="approve-btn1" type="submit" name="result" value="관리자 권한 삭제"></td>
+                {% endif %}
+                <td><input class="approve-btn2" type="submit" name="result" value="탈퇴"></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        
+        
+        </form>
+     
+        
+
+    </div>
+
+{% endblock %}

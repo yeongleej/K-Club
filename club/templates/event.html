@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Event{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/event.css' %}">
+    <script src="{% static 'js/event.js' %}"></script>
+    <div class="board-form">
+        <div id="calendar">
+            <div id="calendar_header"><i class="icon-chevron-left" style="font-weight: bold; font-size: 28px;"> < </i>
+                <h1></h1><i class="icon-chevron-right" style="font-weight: bold; font-size: 28px;"> > </i>
+            </div>
+            <div id="calendar_weekdays"></div>
+            <div id="calendar_content"></div>
+        </div>
+
+    </div>
+
+{% endblock %}

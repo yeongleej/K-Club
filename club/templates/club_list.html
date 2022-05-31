@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Club List{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/club_list.css' %}">
+    <div class="app-form">
+        <ul>
+            <p class = "app-title">[ 동아리 리스트 ]</p>
+        </ul>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">동아리 명</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for club in clubs %}
+              <tr>
+                <td>{{club}}</td>
+                <td>
+                    <a href="{% url 'club:club_application' cName=club %}">가입하기</a>
+                </td>
+                <td>
+                    <a href="{% url 'club:club_home' cName=club %}">동아리 홈페이지 가기</a>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+
+    </div>
+
+{% endblock %}

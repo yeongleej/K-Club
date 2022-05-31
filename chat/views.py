@@ -20,13 +20,15 @@ def chat_main(request):
 def room(request, room_name):
     cur_member = Member.objects.get(user=request.user)
     if cur_member:
-        cur_member.room = room_name
-        cur_member.save()
-        chat_members = Member.objects.filter(room=room_name)
+        # cur_member.room = room_name
+        # cur_member.save()
+        #chat_members = Member.objects.filter(room=room_name)
+        messages = Message.objects.filter(room=room_name)
         return render(request, 'room.html', {
             'room_name_json': mark_safe(json.dumps(room_name)),
             'username': mark_safe(json.dumps(request.user.username)),
-            'chat_members':  chat_members,
+            # 'chat_members':  chat_members,
+            'messages' : messages,
         })
     else:
         return redirect("accounts:login")

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Board Detail{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    <div class="board-form">
+    {% if board.topic == 'free' %}
+    <ul>
+        <p class = "board-title">커뮤니티 > &nbsp; 자유게시판</p>
+        <hr>
+    </ul>
+    {% elif board.topic == 'info' %}
+    <ul>
+        <p class = "board-title">커뮤니티 > &nbsp; 정보게시판</p>
+        <hr>
+    </ul>
+    {% elif board.topic == 'promo' %}
+    <ul>
+        <p class = "board-title">커뮤니티 > &nbsp; 홍보게시판</p>
+        <hr>
+    </ul>
+    {% elif board.topic == 'notice' %}
+    <ul>
+        <p class = "board-title">공지사항</p>
+        <hr>
+    </ul>
+    {% endif %}
+        <div class="detail-form">
+            <ul class="detail-header">
+                <li class="detail-title"><h3 style="margin: 0; font-weight: bold;">{{board.title}}</h3></li>
+                <li><p>{{board.written_at}}</p></li>
+            </ul>
+            <ul class="detail-main">
+                <li class="detail-main-content"><img src="{% static 'img/people.png' %}" width = "20" height="20"></li>
+                <li class="detail-main-content"><p>작성자 : {{board.member}}</p></li>
+                <li class="detail-main-content" style="margin-left: 480px;"><p>조회수 : {{board.views}}</p></li>
+            </ul>
+            <ul>
+                <li class="detail-main-content"><p>{{board.content}}</p></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="detail-bottom">
+                {% if request.user == board.member.user %}
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:board_update' id=board.id %}">수정</a></li>
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:board_delete' id=board.id %}">삭제</a></li>
+                {% endif %}
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:board_index' topic=board.topic %}">목록</a></li>
+            </ul>
+        </div>
+        <!-- <hr style="border: 0; height: 2px;background: #ccc; margin-bottom: 0;"> -->
+        <div class="comment">
+            <form method="post">
+                {% csrf_token %}
+                <ul class="comment-input">
+                    <li class="comment-input-content"><textarea cols="100" rows="5" name="comment" class="form-control" style="border-color: #28A0FF;">댓글을 입력하세요.</textarea></li>
+                </ul>
+                <ul class="comment-input-btn">
+                    <li class="comment-input-content"><input class="comment-write-btn" type="submit" value="등록"></li>
+                </ul>
+            </form>
+            {% for comment in comments %}
+            <div class="comment-main">
+                <ul class="comment-head">
+                    <li class="comment-main-content1"><img src="{% static 'img/people.png' %}" width = "15" height="15"></li>
+                    <li class="comment-main-content1"><p>{{comment.member}}</p></li>
+                </ul>
+                <ul>
+                    <li class="comment-main-content2"><p>{{comment.comment}}</p></li>
+                </ul>
+                <ul class="comment-bottom">
+                    <li class="comment-main-content3"><p>{{comment.written_at}}</p></li>
+                    {% if request.user == comment.member.user %}
+                    <li class="comment-main-content3" style="margin-left: 5px;"><a href="{% url 'club:comment_delete' id=comment.id %}">삭제하기</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% if board.topic == 'notice' %}
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">공지사항</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:notice_index' %}">공지사항</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+    {% else %}
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">커뮤니티</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:freeBoard_index' %}">자유게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="{% url 'club:infoBoard_index' %}">정보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="{% url 'club:promoBoard_index' %}">홍보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+    {% endif %}
+
+{% endblock %}

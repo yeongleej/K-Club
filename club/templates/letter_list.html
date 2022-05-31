@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Letter List{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+    <div class="letter-head">
+        <ul>
+            <h3 class = "letter-title" style="font-weight: bold;">쪽지함</h3>
+            <hr>
+        </ul>
+    </div>
+    <div class="mypage-form">
+        
+        <ul>
+        <p class = "mypage-title">받은 쪽지함</p>
+        </ul>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">보낸사람</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">날짜</th>
+                </tr>
+              </thead>
+            <tbody>
+            {% for r_letter in receive_letters %}
+              <tr>
+                <td>{{r_letter.from_member_name}}</td>
+                <td><a href="{% url 'club:letter_detail' id=r_letter.id %}">{{r_letter.title}}</a></td>
+                <td>{{r_letter.written_at}}</a></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="mypage-form">
+        
+        <ul>
+        <p class = "mypage-title">보낸 쪽지함</p>
+        </ul>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">받는사람</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">수신확인</th>
+                  <th scope="col">날짜</th>
+                </tr>
+              </thead>
+            <tbody>
+            {% for s_letter in send_letters %}
+              <tr>
+                <td>{{s_letter.to_member_name}}</td>
+                <td><a href="{% url 'club:letter_detail' id=s_letter.id %}">{{s_letter.title}}</a></td>
+                {% if s_letter.is_read %}
+                <td>읽음</td>
+                {% else %}
+                <td>읽지 않음</td>
+                {% endif %}
+                <td>{{s_letter.written_at}}</a></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="letter-bottom">
+        <a class="letter-btn" href="{% url 'club:letter_create'%}">쪽지쓰기</a>
+    </div>
+    
+
+{% endblock %}

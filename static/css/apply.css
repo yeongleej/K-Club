@@ -1,0 +1,50 @@
+.app-form {
+    width: 500px;
+    height: 350px;
+    background-color: #EEEFF1;
+    border-radius: 20px;
+
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    
+}
+
+.app-title {
+    font-size: 20px;
+    border: none;
+    text-decoration: underline;
+    text-underline-position:under;
+    font-weight:bold;
+    text-align: left;
+    margin-bottom: 70px;
+ 
+}
+
+.app-contents1 {
+    font-size: 14px;
+    font-weight:bold;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.app-contents2 {
+    font-size: 14px;
+    font-weight:bold;
+    text-align: left;
+    margin-bottom: 40px;
+    margin-left:55px;
+ 
+}
+
+
+.app-btn{
+    font-size: 14px;
+    border: none;
+    padding: 8px;
+    background-color: #28A0FF;
+    font-weight:bold;
+    color: white;
+}

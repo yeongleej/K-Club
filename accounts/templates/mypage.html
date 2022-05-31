@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}My Page{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+    <div class="mypage-form">
+        
+        <form method="post">
+        {% csrf_token %}
+        <ul>
+        <p class = "mypage-title">내정보 </p>
+        </ul>
+<!--        
+        <p class="mypage-image"> <img src="{% static 'img/people.png' %}" width = "30" height="30"> &nbsp; 이름 <input type="text" value="{{member.name}}" name="name"> <input class="mypage_btn" style ="margin-left: 100px" type="submit" value="수정"> </p>
+        <p class="mypage-image"> <img src="{% static 'img/phone.png' %}" width = "30" height="30" >  &nbsp;휴대전화 <input type="text" value="{{member.phone_num}}" name="phone_num"> <input class="mypage_btn" style ="margin-left: 77px" type="submit" value="수정"> </p>
+        <p class="mypage-image"> <img src="{% static 'img/major.png' %}" width = "30" height="30" > &nbsp; 학과 <input type="text" value="{{member.major}}" name="major"> <input class="mypage_btn" style ="margin-left: 100px" type="submit" value="수정"> </p>
+        <p class="mypage-image" ><img src="{% static 'img/sn.png' %}" width = "30" height="30">  &nbsp;학번 <input type="text" value="{{member.student_num}}" name="student_num"> <input class="mypage_btn" style ="margin-left: 77px" type="submit" value="수정"> </p> 
+         -->
+        <table>
+            <tbody>
+              <tr>
+                <td class="mypage-td-image"><img src="{% static 'img/people.png' %}" width = "30" height="30"></td>
+                <td class="mypage-td-title">이름</td>
+                <td class="mypage-td-input"><input type="text" value="{{member.name}}" name="name"></td>
+                <td class="mypage-td"><input class="mypage_btn" type="submit" value="수정"></td>
+              </tr>
+              <tr>
+                <td class="mypage-td-image"><img src="{% static 'img/phone.png' %}" width = "30" height="30" ></td>
+                <td class="mypage-td-title">휴대전화</td>
+                <td class="mypage-td-input"><input type="text" value="{{member.phone_num}}" name="phone_num"></td>
+                <td class="mypage-td"><input class="mypage_btn" type="submit" value="수정"></td>
+              </tr>
+              <tr>
+                <td class="mypage-td-image"><img src="{% static 'img/major.png' %}" width = "30" height="30" ></td>
+                <td class="mypage-td-title">학과</td>
+                <td class="mypage-td-input"><input type="text" value="{{member.major}}" name="major"></td>
+                <td class="mypage-td"><input class="mypage_btn" type="submit" value="수정"></td>
+              </tr>
+              <tr>
+                <td class="mypage-td-image"><img src="{% static 'img/sn.png' %}" width = "30" height="30"></td>
+                <td class="mypage-td-title">학번</td>
+                <td class="mypage-td-input"><input type="text" value="{{member.student_num}}" name="student_num"></td>
+                <td class="mypage-td"><input class="mypage_btn" type="submit" value="수정"></td>
+              </tr>
+              
+            </tbody>
+        </table>
+        
+        </form>
+     
+            <br><br>
+            <ul>
+                <p class = "mypage-title">가입한 동아리</p>
+            </ul>
+
+            <table class="table">
+                <tbody>
+                {% for club in clubs %}
+                  <tr>
+                    <td>{{club.name}}</td>
+                    <td><a href="{% url 'club:club_home' cName=club.name %}">동아리 홈페이지 가기</a></td>
+                    {% if club.is_manager %}
+                    <td><a href="{% url 'accounts:application_list' cName=club.name %}">| 동아리 요청 확인</a></td>
+                    <td><a href="{% url 'accounts:club_member_management' cName=club.name %}">| 동아리원 관리</a></td>
+                    {% else %}
+                    <td><a href="{% url 'accounts:club_resign' id=club.id %}" class="mypage_btn-out">탈퇴하기</a></td>
+                    <td></td>
+                    {% endif %}
+                  </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        
+
+    </div>
+
+{% endblock %}

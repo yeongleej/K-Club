@@ -2,7 +2,8 @@
 {% load static %}
 {% block title %}mainPage{% endblock %}
 {% block content %}
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/calendar.css' %}">
+<script src="{% static 'js/calendar.js' %}"></script>
     {% if request.user.is_authenticated %}
     <main>
         <div class="main-container">
@@ -23,13 +24,13 @@
                     <ul class="myPage-main">
                         <li class="inform-main">
                             {{member.name}} 님, 안녕하세요!<img src="{% static 'img/straightpointline.png' %}" style="margin: 0 0rem 0 1rem;">
-                            <a href="#"><span style="text-decoration : underline; margin-left: 2%;">내정보</span><img src="{% static 'img/informlock.png' %}"></src></a>
+                            <a href="{% url 'accounts:password_check' %}"><span style="text-decoration : underline; margin-left: 2%;">내정보</span><img src="{% static 'img/informlock.png' %}"></src></a>
                         </li>
-                        <li class="inform-main"><a href="#"><img src="{% static 'img/mail.png' %}" style="margin-right: 3%;">
+                        <li class="inform-main"><a href="{% url 'club:letter_list' %}"><img src="{% static 'img/mail.png' %}" style="margin-right: 3%;">
                             <span style="text-decoration: underline">쪽지</span>
-                            <span style="text-decoration: none;"> 0</span></src></a>
+                            <span style="text-decoration: none;">{{letters_num}}</span></src></a>
                         </li>
-                        <li class="inform2-main"><a href="#">나의 동아리 보기</a></li>
+                        <li class="inform2-main"><a href="{% url 'club:myClub_list' %}">나의 동아리 보기</a></li>
                         <li class="inform2-main"><a href="{% url 'chat:chat_main' %}">TALK방 참여</a></li>
                     </ul>
                 </div>

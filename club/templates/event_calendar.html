@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Event Calendar{% endblock %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/event_calendar.css' %}">
+
+    <style>
+        /*popup*/
+        .popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4); }
+        /*팝업 박스*/
+        .popup_box{position: relative;top:50%;left:20%; overflow: auto; height: 600px; width:800px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
+        /*컨텐츠 영역*/
+        .popup_box .popup_cont {padding:50px;line-height:1.4rem;font-size:14px; margin-bottom: 300px;}
+        .popup_box .popup_cont h2 {padding:15px 0;color:#333;margin:0;}
+        .popup_box .popup_cont p{ border-top: 1px solid #666;padding-top: 30px;}
+        /*버튼영역*/
+        .popup_box .popup_btn {display:table;table-layout: fixed;width:100%;height:70px;background:#ECECEC;word-break: break-word;}
+        .popup_box .popup_btn a {position: relative; display: table-cell; height:70px;  font-size:17px;text-align:center;vertical-align:middle;text-decoration:none; background:#ECECEC;}
+        .popup_box .popup_btn a:before{content:'';display:block;position:absolute;top:26px;right:29px;width:1px;height:21px;background:#fff;-moz-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg);}
+        .popup_box .popup_btn a:after{content:'';display:block;position:absolute;top:26px;right:29px;width:1px;height:21px;background:#fff;-moz-transform: rotate(45deg); -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); -o-transform: rotate(45deg); transform: rotate(45deg);}
+        .popup_box .popup_btn a.close_day {background:#5d5d5d;}
+        .popup_box .popup_btn a.close_day:before, .popup_box .popup_btn a.close_day:after{display:none;}
+        /*오버레이 뒷배경*/
+        .popup_overlay{position:fixed;top:0px;right:0;left:0;bottom:0;z-index:1001;;background:rgba(0,0,0,0.5);}
+        /*popup*/
+    </style>
+    <div class="board-form">
+        <div class="calendar">
+            <div class="calendar-header">
+              <div class="year-month"></div>
+              <div class="calendar-nav">
+                <button class="calendar-nav-btn go-prev" onclick="prevMonth()">&lt;</button>
+                <button class="calendar-nav-btn go-today" onclick="goToday()">Today</button>
+                <button class="calendar-nav-btn go-next" onclick="nextMonth()">&gt;</button>
+              </div>
+            </div>
+            <div class="calendar-main">
+              <div class="days">
+                <div class="day">일</div>
+                <div class="day">월</div>
+                <div class="day">화</div>
+                <div class="day">수</div>
+                <div class="day">목</div>
+                <div class="day">금</div>
+                <div class="day">토</div>
+              </div>
+              <div class="dates"></div>
+            </div>
+        </div>
+        <input id="es" type="hidden" value="{{eventsJson}}">
+        <script src="{% static 'js/event_calendar.js' %}"></script>
+        <script>
+            let cnt = 0;
+            var events = JSON.parse('{{eventsJson | safe }}');
+            var length = Object.keys(events).length / 3; 
+            // 팝업
+            function openPop(cYear, cMonth, cDate){
+                var month = cMonth + 1;
+                month = month < 10 ? '0' + month : '' + month; 
+                var date = cDate < 10 ? '0' + cDate : '' + cDate;
+                var clickDate = cYear.toString()+"-"+month.toString()+"-"+date.toString();
+                for(var i=0; i<length; i++){
+                    if (clickDate == events['start_at'+i.toString()]){
+                        var trTag = document.createElement('tr');
+                        trTag.id = "ec";
+                        var tdNode1 = document.createElement('td');
+                        var tdNode2 = document.createElement('td');
+                        var tdNode3 = document.createElement('td');
+                        tdNode1.innerHTML = events['club_name'+i.toString()];
+                        tdNode2.innerHTML = events['title'+i.toString()];
+                        tdNode3.innerHTML = events['start_at'+i.toString()];
+                        trTag.appendChild(tdNode1);
+                        trTag.appendChild(tdNode2);
+                        trTag.appendChild(tdNode3);
+                        document.querySelector('.event-content').appendChild(trTag);
+                        cnt += 1;
+                    }
+                }
+                document.getElementById("popup_layer").style.display = "block";
+                document.querySelector('.click-date').textContent = `${cYear}년 ${cMonth+1}월 ${cDate}일`;
+            };
+            function closePop(){
+                for(var i=0; i<cnt; i++){
+                    var preTr = document.querySelector('#ec');
+                    preTr.remove();
+                }
+                cnt = 0;
+                document.getElementById("popup_layer").style.display = "none";
+            };
+        </script>
+        <br>
+        <a href="{% url 'club:schedules_sync' %}" style="margin-left: 750px;">click</a>
+        <div class="popup_layer" id="popup_layer" style="display: none;">
+            <div class="popup_box">
+                <!--팝업 컨텐츠 영역-->
+                <div class="popup_cont">
+                    <div class="click-date"></div>
+                    <p>
+                        <table class="table table-striped">
+                            <tbody class="event-content">
+                            </tbody>
+                        </table>    
+                    </p>
+                </div>
+                <!--팝업 버튼 영역-->
+                <div class="popup_btn" style="float: bottom; margin-top: 200px;">
+                    <a href="javascript:closePop();">닫기</a>
+                </div>
+            </div>
+          </div>
+    </div>
+{% endblock %}

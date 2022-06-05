@@ -27,7 +27,7 @@
             {% if boards != None %}
                 {% for board in boards %}
                     <tr>
-                        <td><a href="#">{{board.title}}</a></td>
+                        <td><a href="{% url 'club:board_detail' id=board.id %}">{{board.title}}</a></td>
                         <td>{{board.member.name}}</td>
                         <td>{{board.written_at}}</td>
                         <td>{{board.views}}</td>

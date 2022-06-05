@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}freeBoard Index{% endblock %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/club_style.css' %}">
+    <div class="sub-nav">
+        <table style="width: 1000px; margin-left: 600px;">
+            <tbody>
+                <tr>
+                    <td class="sub-content"><a href="{% url 'club:club_home' cName=cName %}"><p style="margin-left: -30px;">동홈</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_board_index' cName=cName %}"><p style="margin-left: -90px;">동아리 게시판</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_schedule_index' cName=cName %}"><p style="margin-left: -80px;">일정</p></a></td>
+                    <td class="sub-content"><a href="/chat/{{cName}}"><p style="margin-left: -120px;">{{cName}} TALK</p></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="board-form">
+        <ul>
+            <p class = "board-title">{{cName}} > &nbsp; 동아리 게시판</p>
+            <hr>
+        </ul>
+        {% if request.user.is_authenticated %}
+        <a class="write-btn" href="{% url 'club:club_board_create' cName=cName  %}">글쓰기</a>
+        {% endif %}
+        <br><br>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">제목</th>
+                <th scope="col">글쓴이</th>
+                <th scope="col">작성일</th>
+                <th scope="col">조회수</th>
+                <th scope="col">추천수</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% if boards != None %}
+                {% for board in boards %}
+                    <tr>
+                        <td><a href="{% url 'club:board_detail' id=board.id %}">{{board.title}}</a></td>
+                        <td>{{board.member.name}}</td>
+                        <td>{{board.written_at}}</td>
+                        <td>{{board.views}}</td>
+                        <td>{{board.likes}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+          </table>
+
+
+    </div>
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">{{cName}}</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:club_board_index' cName=cName %}">동아리 게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+
+{% endblock %}

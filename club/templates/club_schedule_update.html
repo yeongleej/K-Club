@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Club Schedule Update{% endblock %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/club_style.css' %}">
+    <div class="sub-nav">
+        <table style="width: 1000px; margin-left: 600px;">
+            <tbody>
+                <tr>
+                    <td class="sub-content"><a href="{% url 'club:club_home' cName=schedule.club_name %}"><p style="margin-left: -30px;">동홈</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_board_index' cName=schedule.club_name %}"><p style="margin-left: -90px;">동아리 게시판</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_schedule_index' cName=schedule.club_name %}"><p style="margin-left: -80px;">일정</p></a></td>
+                    <td class="sub-content"><a href="/chat/{{schedule.club_name}}"><p style="margin-left: -120px;">{{cName}} TALK</p></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="letter-create-form">
+        <ul style="display: flex;width: 100%; text-align: left;">
+            <li style="margin-left: 0; margin-right: 20px;"><img src="{% static 'img/schedule.png' %}"width = "60" height="60"></li>
+            <li style="margin-left: 0;"><h3 class = "board-title">일정 수정</h3></li>
+        </ul>
+        <hr>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table class="table table-striped">
+                <tbody>
+                  <tr>
+                    <td>동아리 명</td>
+                    <td>{{schedule.club_name}}</td>
+                  </tr>
+                  <tr>
+                    <td>시작일</td>
+                    <td><input type="date" name="start_at" class="form-control" style="width: 530px; border-color: #28A0FF;"></td>
+                  </tr>
+                  <tr>
+                    <td>마감일</td>
+                    <td><input type="date" name="finish_at" class="form-control" style="width: 530px; border-color: #28A0FF;"></td>
+                  </tr>
+                  <tr>
+                    <td>내용</td>
+                    <td><textarea cols="75" rows="10" name="content" class="form-control" style="border-color: #28A0FF;">{{schedule.content}}</textarea></td>
+                  </tr>
+                  <tr>
+                    <td>파일첨부</td>
+                    <td><input type="file" name="image" class="form-control"></td>
+                  </tr>
+                </tbody>
+            </table>
+            
+            <input class="write-btn" type="submit" value="수정하기" style="width: 80px; margin-left: 600px;">
+        </form>
+    </div>
+
+{% endblock %}

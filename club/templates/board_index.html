@@ -2,13 +2,29 @@
 {% load static %}
 {% block title %}freeBoard Index{% endblock %}
 {% block content %}
-
     <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
     <div class="board-form">
+        {% if topic == 'free' %}
+        <ul>
+            <p class = "board-title">커뮤니티 > &nbsp; 자유게시판</p>
+            <hr>
+        </ul>
+        {% elif topic == 'info' %}
+        <ul>
+            <p class = "board-title">커뮤니티 > &nbsp; 정보게시판</p>
+            <hr>
+        </ul>
+        {% elif topic == 'promo' %}
         <ul>
             <p class = "board-title">커뮤니티 > &nbsp; 홍보게시판</p>
             <hr>
         </ul>
+        {% elif topic == 'notice' %}
+        <ul>
+            <p class = "board-title">공지사항</p>
+            <hr>
+        </ul>
+        {% endif %}
         {% if request.user.is_authenticated %}
         <a class="write-btn" href="{% url 'club:board_create' topic=topic  %}">글쓰기</a>
         {% endif %}
@@ -43,9 +59,9 @@
     <div class="side-menubar">
         <ul>
             <li class="side-menubar-content"><h3 style="padding-top: 20px;">커뮤니티</h3></li><hr>
-            <li class="side-menubar-content"><a href="{% url 'club:freeBoard_index' %}">자유게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
-            <li class="side-menubar-content"><a href="{% url 'club:infoBoard_index' %}">정보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
-            <li class="side-menubar-content"><a href="{% url 'club:promoBoard_index' %}">홍보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="club/free">자유게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="club/info">정보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="club/promo">홍보게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
         </ul>
     </div>
 

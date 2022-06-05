@@ -29,8 +29,8 @@
                     <a href="#" class="calendar-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white;">행사일정
                         <span class="calendar-caret"></span></a>
                     <ul class="community-menu" role="menu">
-                        <li><a href="{% url 'club:event' %}" style="color: #FFF;">이 달의 행사</a></li>
-                        <li><a href="#" style="color: #FFF;">캘린더</a></li>
+                        <li><a href="{% url 'club:event_thisMonth' %}" style="color: #FFF;">이 달의 행사</a></li>
+                        <li><a href="{% url 'club:event_calendar' %}" style="color: #FFF;">캘린더</a></li>
                     </ul>
                 </li> 
                 <li class="event">
@@ -52,13 +52,11 @@
                     </ul>
                 </li>
                 <li class="inquiry">
-                    <a href="#" class="inquiry-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white;">챗봇
+                    <a href="#" class="inquiry-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white;"> 챗봇
                         <span class="inquiry-caret"></span></a>
-                    <!-- <ul class="inquiry-menu" role="menu">
-                        <li><a href="#" style="color: #FFF;">동아리 등록 문의</a></li>
-                        <li><a href="#" style="color: #FFF;">1 : 1 문의</a></li>
-                        <li><a href="#" style="color: #FFF;">챗봇</a></li>
-                    </ul>          -->    
+                    <ul class="inquiry-menu" role="menu">
+                        <li><a href="/chat/chatbot" style="color: #FFF;">챗봇</a></li>
+                    </ul>         
                 </li> 
             </div>
             <li> 
@@ -98,8 +96,8 @@
                     <a href="#" class="calendar-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white;">행사일정
                         <span class="calendar-caret"></span></a>
                     <ul class="community-menu" role="menu">
-                        <li><a href="{% url 'club:event' %}" style="color: #FFF;">이 달의 행사</a></li>
-                        <li><a href="#" style="color: #FFF;">캘린더</a></li>
+                        <li><a href="{% url 'club:event_thisMonth' %}" style="color: #FFF;">이 달의 행사</a></li>
+                        <li><a href="{% url 'club:event_calendar' %}" style="color: #FFF;">캘린더</a></li>
                     </ul>
                 </li> 
                 <li class="event">
@@ -123,12 +121,10 @@
                 <li class="inquiry">
                     <a href="#" class="inquiry-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white;"> 챗봇
                         <span class="inquiry-caret"></span></a>
-                    <!-- <ul class="inquiry-menu" role="menu">
-                        <li><a href="#" style="color: #FFF;">동아리 등록 문의</a></li>
-                        <li><a href="#" style="color: #FFF;">1 : 1 문의</a></li>
-                        <li><a href="#" style="color: #FFF;">챗봇</a></li>
-                    </ul>          -->
-                
+                    <ul class="inquiry-menu" role="menu">
+                        <li><a href="/chat/chatbot" style="color: #FFF;">챗봇</a></li>
+                    </ul>         
+                </li>
             </div>
             <li> 
                 <a href="{% url 'accounts:login' %}" class="btn" style="border-radius: 0%;">로그인</a>

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
-from club.models import Club
+# from club.models import Club
 
 
 # Create your models here.

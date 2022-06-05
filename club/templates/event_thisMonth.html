@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Event This Month {% endblock %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/club_style.css' %}">
+    <div class="board-form">
+        <ul>
+            <p class = "board-title">이달의 행사</p>
+            <hr>
+        </ul>
+        <br><br>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 60px;">#</th>
+                <th scope="col">Title</th>
+                <th scope="col" style="width: 120px;">시작일</th>
+                <th scope="col" style="width: 120px;">마감일</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% if schedules != None %}
+                {% for schedule in schedules %}
+                <tr>
+                    <td>{{schedule.state}}</td>
+                    <td><a href="{% url 'club:club_schedule_detail' id=schedule.id %}">{{schedule.title}}</a></td>
+                    <td>{{schedule.start_at}}</td>
+                    <td>{{schedule.finish_at}}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}

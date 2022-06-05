@@ -3,6 +3,21 @@
 {% block title %}Board Detail{% endblock %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    {% if board.topic == 'club' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/club_style.css' %}">
+    <div class="sub-nav" style="margin-bottom: 0px;">
+        <table style="width: 1000px; margin-left: 600px;">
+            <tbody>
+                <tr>
+                    <td class="sub-content"><a href="{% url 'club:club_home' cName=board.club_name %}"><p style="margin-left: -30px;">동홈</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_board_index' cName=board.club_name %}"><p style="margin-left: -90px;">동아리 게시판</p></a></td>
+                    <td class="sub-content"><a href="#"><p style="margin-left: -80px;">일정</p></a></td>
+                    <td class="sub-content"><a href="#"><p style="margin-left: -120px;">{{board.club_name}} TALK</p></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
     <div class="board-form">
     {% if board.topic == 'free' %}
     <ul>
@@ -24,6 +39,11 @@
         <p class = "board-title">공지사항</p>
         <hr>
     </ul>
+    {% elif board.topic == 'club' %}
+    <ul>
+        <p class = "board-title">{{board.club_name}} > &nbsp; 동아리 게시판</p>
+        <hr>
+    </ul>
     {% endif %}
         <div  class="create-form">
         <form method="post">
@@ -34,7 +54,7 @@
                 <li><input type="text" name="title" class="form-control" style="width: 530px; border-color: #28A0FF;" value="{{board.title}}"></li>
             </ul>
             <hr style="height: 1px;">
-            <ul class="create-input">
+            <!-- <ul class="create-input">
                 <li class="cInput" style="width: 180px;" ><p class="board-input-title">동아리 명</p></li>
                 <li class="cInput">
                     {% for club in clubs %}
@@ -56,7 +76,17 @@
                     {% endif %}
                     {% endfor %}
                 </li>
+            </ul> -->
+            {% if topic == 'club'%}
+            <ul class="create-input">
+                <li class="cInput" style="width: 180px;" ><p class="board-input-title">동아리 명</p></li>
+                <li class="cInput">
+                    <input type="hidden" value="club" name="topic">
+                    <p>{{board.club_name}}</p>
+                </li>
             </ul>
+            <hr style="height: 1px;">
+            {% endif %}
             <hr style="height: 1px;">
             <ul class="create-input">
                 <li class="cInput" style="margin-right: 50px;"><p class="board-input-title">작성자</p></li>
@@ -71,7 +101,14 @@
         </form>
         </div>
     </div>
-    {% if board.topic == 'notice' %}
+    {% if board.topic == 'club' %}
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">{{board.club_name}}</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:club_board_index' cName=board.club_name %}">동아리 게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+    {% elif board.topic == 'notice' %}
     <div class="side-menubar">
         <ul>
             <li class="side-menubar-content"><h3 style="padding-top: 20px;">공지사항</h3></li><hr>

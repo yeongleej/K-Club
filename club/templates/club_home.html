@@ -3,10 +3,63 @@
 {% block title %}Club Home{% endblock %}
 {% block content %}
 
-    <h3> [ 동아리 HOME ] </h3>
-    <hr>
-    <div class="container">
-        {{cName}}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/club_style.css' %}">
+    <div class="sub-nav">
+        <table style="width: 1000px; margin-left: 600px;">
+            <tbody>
+                <tr>
+                    <td class="sub-content"><a href="{% url 'club:club_home' cName=club_info.name %}"><p style="margin-left: -30px;">동홈</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_board_index' cName=club_info.name %}"><p style="margin-left: -90px;">동아리 게시판</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_schedule_index' cName=club_info.name %}"><p style="margin-left: -80px;">일정</p></a></td>
+                    <td class="sub-content"><a href="/chat/{{club_info.name}}/"><p style="margin-left: -120px;">{{club_info.name}} TALK</p></a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <main>
+        <div>
+            <div class="logo">
+                <table>
+                    <tbody style="text-align: center;">
+                        <tr><td><p class="club-name">{{club_info.name}}</p></td></tr>
+                        <tr><td><p class="club-description">{{club_info.description}}</p></td></tr>
+                    </tbody>    
+                </table>
+            </div>
+        </div>
+        <div class="main-container">
+        <div class="temp-box box-one" style="margin-top: 70px; height: 300px;">
+            <div class="title-fff" style=" text-decoration: none;"><a href="{% url 'club:club_board_index' club_info.name %}">동아리 게시판 +</a></div>
+            <div class="border-fff">
+                <p>가</p>
+                <p>나</p>
+            </div>
+        </div>
+        <div class="temp-box box-one" style=" margin-top: 70px;height: 300px;">
+            <div class="title-fff" style=" text-decoration: none;"><a href="/chat/{{club_info.name}}">TALK +</a></div>
+            <div class="border-fff" style="background: #4D77FF;">
+                <br>
+                <a href="/chat/{{club_info.name}}"><p class="talk-btn">{{club_info.name}}<br>TALK</p></a>
+            </div>
+        </div>
+        <div class="temp-box box-one" style=" margin-top: 70px;height: 300px;">
+            <div class="title-fff"><a href="#">내정보 +</a></div>
+            <div class="border-fff">
+                <ul class="myPage-main">
+                    <li class="inform-main">
+                        {{member.name}} 님, 안녕하세요!<img src="{% static 'img/straightpointline.png' %}" style="margin: 0 0rem 0 1rem;">
+                        <a href="{% url 'accounts:password_check' %}"><span style="text-decoration : underline; margin-left: 2%;">내정보</span><img src="{% static 'img/informlock.png' %}"></src></a>
+                    </li>
+                    <li class="inform-main"><a href="{% url 'club:letter_list' %}"><img src="{% static 'img/mail.png' %}" style="margin-right: 3%;">
+                        <span style="text-decoration: underline">쪽지</span>
+                        <span style="text-decoration: none;">{{letters_num}}</span></src></a>
+                    </li>
+                    <li class="inform2-main"><a href="{% url 'club:myClub_list' %}">나의 동아리 보기</a></li>
+                    <li class="inform2-main"><a href="{% url 'chat:chat_main' %}">TALK방 참여</a></li>
+                </ul>
+            </div>
+        </div>
 
+        </div>
+    </main>
 {% endblock %}

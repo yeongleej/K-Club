@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Club Schedule Detail{% endblock %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/club_style.css' %}">
+    <div class="sub-nav" style="margin-bottom: 0px;">
+        <table style="width: 1000px; margin-left: 600px;">
+            <tbody>
+                <tr>
+                    <td class="sub-content"><a href="{% url 'club:club_home' cName=schedule.club_name %}"><p style="margin-left: -30px;">동홈</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_board_index' cName=schedule.club_name %}"><p style="margin-left: -90px;">동아리 게시판</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_schedule_index' cName=schedule.club_name %}"><p style="margin-left: -80px;">일정</p></a></td>
+                    <td class="sub-content"><a href="/chat/{{schedule.club_name}}"><p style="margin-left: -120px;">{{schedule.club_name}} TALK</p></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="board-form">
+    <ul>
+        <p class = "board-title">{{schedule.club_name}} > &nbsp; 일정 상세</p>
+        <hr>
+    </ul>
+        {% if schedule.image_url %}
+        <div class="detail-form" style="height: 1050px;">
+            <ul class="detail-header">
+                <li class="detail-title"><h3 style="margin: 0; font-weight: bold;">{{schedule.title}}</h3></li>
+                <li><p>{{schedule.start_at}} ~ {{schedule.finish_at}}</p></li>
+            </ul>
+            <ul class="detail-main">
+                <li class="detail-main-content"><img src="{% static 'img/people.png' %}" width = "20" height="20"></li>
+                <li class="detail-main-content"><p>동아리 : {{schedule.club_name}}</p></li>
+            </ul>
+            <ul>
+                <li class="detail-main-content"><p>{{schedule.content}}</p></li>
+            </ul>
+            <ul>
+                <li class="detail-main-content"><img src="{{schedule.image_url.url}}" width = "600" height="800"></li>
+            </ul>
+        </div>
+        {% else %}
+        <div class="detail-form">
+            <ul class="detail-header">
+                <li class="detail-title"><h3 style="margin: 0; font-weight: bold;">{{schedule.title}}</h3></li>
+                <li><p>{{schedule.start_at}} ~ {{schedule.finish_at}}</p></li>
+            </ul>
+            <ul class="detail-main">
+                <li class="detail-main-content"><img src="{% static 'img/people.png' %}" width = "20" height="20"></li>
+                <li class="detail-main-content"><p>동아리 : {{schedule.club_name}}</p></li>
+            </ul>
+            <ul>
+                <li class="detail-main-content"><p>{{schedule.content}}</p></li>
+            </ul>
+        </div>
+        {% endif %}
+        <div>
+            <ul class="detail-bottom">
+                {% if is_club_member %}
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:club_schedule_update' id=schedule.id %}">수정</a></li>
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:club_schedule_delete' id=schedule.id %}">삭제</a></li>
+                {% endif %}
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:club_schedule_index' cName=schedule.club_name %}">목록</a></li>
+            </ul>
+        </div>
+        <!-- <hr style="border: 0; height: 2px;background: #ccc; margin-bottom: 0;"> -->
+    </div>
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">{{schedule.club_name}}</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:club_schedule_index' cName=schedule.club_name %}">일정</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+            <li class="side-menubar-content"><a href="{% url 'club:club_schedule_create' cName=schedule.club_name %}">일정 추가</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+
+{% endblock %}

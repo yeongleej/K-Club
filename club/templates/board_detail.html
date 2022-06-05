@@ -4,6 +4,21 @@
 {% block content %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/board_create.css' %}">
+    {% if board.topic == 'club' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/club_style.css' %}">
+    <div class="sub-nav" style="margin-bottom: 0px;">
+        <table style="width: 1000px; margin-left: 600px;">
+            <tbody>
+                <tr>
+                    <td class="sub-content"><a href="{% url 'club:club_home' cName=board.club_name %}"><p style="margin-left: -30px;">동홈</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_board_index' cName=board.club_name %}"><p style="margin-left: -90px;">동아리 게시판</p></a></td>
+                    <td class="sub-content"><a href="{% url 'club:club_schedule_index' cName=board.club_name %}"><p style="margin-left: -80px;">일정</p></a></td>
+                    <td class="sub-content"><a href="#"><p style="margin-left: -120px;">{{board.club_name}} TALK</p></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
     <div class="board-form">
     {% if board.topic == 'free' %}
     <ul>
@@ -23,6 +38,11 @@
     {% elif board.topic == 'notice' %}
     <ul>
         <p class = "board-title">공지사항</p>
+        <hr>
+    </ul>
+    {% elif board.topic == 'club' %}
+    <ul>
+        <p class = "board-title">{{board.club_name}} > &nbsp; 동아리 게시판</p>
         <hr>
     </ul>
     {% endif %}
@@ -46,7 +66,11 @@
                 <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:board_update' id=board.id %}">수정</a></li>
                 <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:board_delete' id=board.id %}">삭제</a></li>
                 {% endif %}
+                {% if board.topic == 'club' %}
+                <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:club_board_index' cName=board.club_name %}">목록</a></li>
+                {% else %}
                 <li class="detail-main-content"><a class="detail-btn" href="{% url 'club:board_index' topic=board.topic %}">목록</a></li>
+                {% endif %}
             </ul>
         </div>
         <!-- <hr style="border: 0; height: 2px;background: #ccc; margin-bottom: 0;"> -->
@@ -79,7 +103,14 @@
             {% endfor %}
         </div>
     </div>
-    {% if board.topic == 'notice' %}
+    {% if board.topic == 'club' %}
+    <div class="side-menubar">
+        <ul>
+            <li class="side-menubar-content"><h3 style="padding-top: 20px;">{{board.club_name}}</h3></li><hr>
+            <li class="side-menubar-content"><a href="{% url 'club:club_board_index' cName=board.club_name %}">동아리 게시판</a></li><hr style="height: 1px; background: #ccc; width: 150px; margin-right: 0;">
+        </ul>
+    </div>
+    {% elif board.topic == 'notice' %}
     <div class="side-menubar">
         <ul>
             <li class="side-menubar-content"><h3 style="padding-top: 20px;">공지사항</h3></li><hr>

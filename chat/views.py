@@ -25,8 +25,8 @@ def room(request, room_name):
         #chat_members = Member.objects.filter(room=room_name)
         messages = Message.objects.filter(room=room_name)
         return render(request, 'room.html', {
-            'room_name_json': mark_safe(json.dumps(room_name)),
-            'username': mark_safe(json.dumps(request.user.username)),
+            'room_name_json': mark_safe(json.dumps(room_name, ensure_ascii=False)),
+            'username': mark_safe(json.dumps(request.user.username, ensure_ascii=False)),
             # 'chat_members':  chat_members,
             'messages' : messages,
         })

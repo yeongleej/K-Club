@@ -1,4 +1,11 @@
-$(function () {
+function openPop(){
+  document.getElementById("popup_layer").style.display = "block";
+  console.log()
+};
+function closePop(){
+  document.getElementById("popup_layer").style.display = "none";
+};
+$(function A() {
     function c() {
       p();
       var e = h();
@@ -18,8 +25,8 @@ $(function () {
           l.append('<div class="blank"></div>');
         } else {
           var v = e[c].day;
-          var m = g(new Date(t, n - 1, v)) ? '<div class="today">' : "<div>";
-          l.append(m + "" + v + "</div>");
+          var m = g(new Date(t, n - 1, v)) ? '<a class="btn_open" href="javascript:openPop()" ><div class="today">' : '<a class="btn_open" href="javascript:openPop()"><div>';
+          l.append(m + "" + v + "</div></a>");
         }
       }
       var y = o[n - 1];
@@ -40,7 +47,7 @@ $(function () {
     function p() {
       f.empty();
       for (var e = 0; e < 7; e++) {
-        f.append("<div>" + s[e].substring(0, 3) + "</div>");
+        f.append("<a class='btn_open' href='javascript:openPop()'><div>" + s[e].substring(0, 3) + "</div></a>");
       }
     }
     function d() {
@@ -125,7 +132,7 @@ $(function () {
     c();
     a.find('i[class^="icon-chevron"]').on("click", function () {
       var e = $(this);
-      var r = function (e) {
+      var r = function A(e) {
         n = e == "next" ? n + 1 : n - 1;
         if (n < 1) {
           n = 12;
@@ -142,5 +149,7 @@ $(function () {
         r("next");
       }
     });
+
   });
   
+

@@ -17,14 +17,14 @@
               </tr>
             </thead>
             <tbody>
-            {% for club in clubs %}
+            {% for club in clubs_info %}
               <tr>
-                <td>{{club}}</td>
+                <td>{{club.name}}</td>
                 <td>
-                    <a href="{% url 'club:club_application' cName=club %}">가입하기</a>
+                    <a href="{% url 'club:club_application' cName=club.name %}">가입하기</a>
                 </td>
                 <td>
-                    <a href="{% url 'club:club_home' cName=club %}">동아리 홈페이지 가기</a>
+                    <a href="{% url 'club:club_home' cName=club.name %}">동아리 홈페이지 가기</a>
                 </td>
               </tr>
             {% endfor %}

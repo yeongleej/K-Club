@@ -168,8 +168,9 @@ def event_thisMonth(request):
     return render(request, 'event_thisMonth.html', {'schedules':schedules})
 
 def club_list(request):
-    clubs = Club.objects.values_list('name', flat=True).distinct()
-    return render(request, 'club_list.html', {'clubs': clubs})
+    clubs_info = Club_Info.objects.all()
+    #clubs = Club.objects.values_list('name', flat=True).distinct()
+    return render(request, 'club_list.html', {'clubs_info': clubs_info})
 
 def myClub_list(request):
     user_id = request.session.get('user')

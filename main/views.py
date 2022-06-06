@@ -13,3 +13,6 @@ def index(request):
         print(letters)
         return render(request, 'main.html', {'member':member, 'letters_num':len(letters)})
     return render(request, 'main.html')
+
+def chatbot(request):
+    return render(request, 'chatbot.html')

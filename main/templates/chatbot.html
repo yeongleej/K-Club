@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div id="wrap">
+        <main>
+            <div class="chatbot top-bar">문의 > 챗봇</div>
+            <div class="main-container-chatbot">
+                <div class="chatbot-box box-0004">
+                    <div class="chatbot-box-answer">
+                        <div class="box-000">
+                            <div class="chatbot-img"><img src="{% static 'img/chatbot.png' %}"></div>
+                            <div class="box-001">무엇이 궁금하신가요? 제가 대답해드릴게요!</div>
+                        </div>
+                        <div class="box-002">
+                            <div class="box-001">내용을 입력하세요..</div>
+                            <div class="chatbot-img"><img src="{% static 'img/user1.png' %}"></div>
+                        </div>
+                        <div class="box-000">
+                            <div class="chatbot-img"><img src="{% static 'img/chatbot.png' %}"></div>
+                            <div class="box-001">답변을 출력중입니다...</div>
+                        </div>
+                    </div>
+                    <div class="chatbot-box-inquiry">
+                        <div class="chatbot-auto-inquiry">
+                            <div class ="inquiry-tooltip"></div> 
+                                    <div class="input0">&nbsp;&nbsp;자주 하는 질문
+                                        <div class="group">
+                                            <div class="box-003">빠샤 인원 수가 몇 명인가요?</div>
+                                            <div class="box-003" style="margin-left: -20%;">이번 주 행사 알려줘</div>
+                                        </div>
+                                        <div class="group">
+                                            <div class="box-003">피아노사랑 설명</div>
+                                            <div class="box-003"style="margin-left: -29%;">피아노사랑 행사 언제 해?</div>
+                                        </div>
+                                    </div>
+                                    <div class="gap-box" style="flex: 1; width: 0"></div>
+                                <form method="post">
+                                  {% csrf_token %}
+                                    <!-- <input type="textarea" id="input1" placeholder="&nbsp;내용을 입력하세요.."> -->
+                                    <textarea id="input1"cols="75" rows="10" name="content" placeholder="&nbsp;내용을 입력하세요.." ></textarea>
+                                    <!-- <input type="submit" id="submit1" value="입력"> -->
+                                    <button id="submit1" onclick="button1_click();">제출</button>
+                                </form>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="chat-box box-0005">
+                    <div class="gap-box"> </div>
+                    <div class="border-001">
+                        <ul>
+                            <div>
+                            <li class ="inquiry-chatbot"><a href="#" style="color: #000; font-size: 3rem;">문의</a></li>
+                            <li class ="inquiry-chatbot"><a href="#" style="color: #000;">동아리 등록 문의</a></li>
+                            <li class ="inquiry-chatbot"><a href="#" style="color: #000;">1 : 1 문의</a></li>
+                            <li class ="inquiry-chatbot"><a href="#" style="color: #56BBF1;">챗봇</a></li>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="gap-box"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+          <!-- <input type="textarea" id="input1" placeholder="&nbsp;내용을 입력하세요.."> -->
+          <textarea id="input1"cols="75" rows="10" name="content" placeholder="&nbsp;내용을 입력하세요.." ></textarea>
+          <!-- <input type="submit" id="submit1" value="입력"> -->
+          <button id="submit1" onclick="button1_click();">제출</button>
+    </form>
+    <script>
+    function button1_click() {
+       var q = document.getElementById("input1");
+       console.log(q)
+       axios.post('http://127.0.0.1:5000/query/TEST',{
+            'query' : q
+        })
+        .then(function (response){
+            console.log(response);
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+    }
+    </script>
+{% endblock %}

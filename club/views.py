@@ -261,7 +261,7 @@ def club_schedule_create(request, cName):
             schedule.start_at = request.POST['start_at']
             schedule.finish_at = request.POST['finish_at']
             schedule.content = request.POST['content']
-            schedule.image_url = request.FILES['image']
+            schedule.image_url = request.FILES.get('image', None)
             schedule.club_name = cName
             today = datetime.today()
             sDate =datetime.strptime(schedule.start_at, '%Y-%m-%d')
@@ -296,7 +296,7 @@ def club_schedule_update(request, id):
         schedule.start_at = request.POST['start_at']
         schedule.finish_at = request.POST['finish_at']
         schedule.content = request.POST['content']
-        schedule.image_url = request.FILES['image']
+        schedule.image_url = request.FILES.get('image', None)
         schedule.save()
         return render(request, 'club_schedule_detail.html', {'schedule':schedule})
     return render(request, 'club_schedule_update.html', {'schedule':schedule})

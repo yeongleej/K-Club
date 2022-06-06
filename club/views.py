@@ -100,7 +100,7 @@ def board_detail(request, id):
             board.views -= 2
             board.save()
             return redirect('club:board_detail', board.id)
-        return render(request, 'board_detail.html', {'board':board, 'comments':comments ,'error':'로그인 하세요!'})
+        return redirect('accounts:login')
     return render(request, 'board_detail.html', {'board':board, 'comments':comments, 'cName':board.club_name})
 
 def comment_delete(request, id):
@@ -190,7 +190,11 @@ def club_home(request, cName):
             club_info = Club_Info.objects.get(name=cName)
         except Club_Info.DoesNotExist:
             club_info = None
-        return render(request, 'club_home.html', {'club_info': club_info, 'member':member})
+        try:
+            club_boards = Board.objects.filter(topic='club', club_name=cName)
+        except Board.DoesNotExist:
+            club_boards = None
+        return render(request, 'club_home.html', {'club_info': club_info, 'member':member, 'club_boards':club_boards})
     return redirect('accounts:login')
 
 def club_board_index(request, cName):
@@ -231,7 +235,11 @@ def club_application(request, cName):
         clubs = Club.objects.filter(member=member)
         for club in clubs:
             if club.name == cName:
-                return render(request, 'club_home.html', {'cName': cName})
+                try:
+                    club_info = Club_Info.objects.get(name=cName)
+                except Club_Info.DoesNotExist:
+                    club_info = None
+                return render(request, 'club_home.html', {'club_info': club_info, 'member':member})
         if request.method == 'POST':
             sNum = request.POST['student_num']
             try:

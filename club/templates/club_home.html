@@ -31,8 +31,16 @@
         <div class="temp-box box-one" style="margin-top: 70px; height: 300px;">
             <div class="title-fff" style=" text-decoration: none;"><a href="{% url 'club:club_board_index' club_info.name %}">동아리 게시판 +</a></div>
             <div class="border-fff">
-                <p>가</p>
-                <p>나</p>
+                <table class="table">
+                    <tbody>
+                        {% for c_board in club_boards %}
+                        <tr>
+                            <td><a href="{% url 'club:board_detail' id=c_board.id %}">{{c_board.title}}</a></td>
+                            <td>{{c_board.written_at.month}}/{{c_board.written_at.day}}&nbsp;{{c_board.written_at.hour}}:{{c_board.written_at.minute}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="temp-box box-one" style=" margin-top: 70px;height: 300px;">

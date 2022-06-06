@@ -35,13 +35,6 @@
                                         </div>
                                     </div>
                                     <div class="gap-box" style="flex: 1; width: 0"></div>
-                                <form method="post">
-                                  {% csrf_token %}
-                                    <!-- <input type="textarea" id="input1" placeholder="&nbsp;내용을 입력하세요.."> -->
-                                    <textarea id="input1"cols="75" rows="10" name="content" placeholder="&nbsp;내용을 입력하세요.." ></textarea>
-                                    <!-- <input type="submit" id="submit1" value="입력"> -->
-                                    <button id="submit1" onclick="button1_click();">제출</button>
-                                </form>
                         </div>
                     </div> 
                 </div>
@@ -63,26 +56,28 @@
             </div>
         </main>
     </div>
-    <form method="post">
+    <!-- <form id="form">
         {% csrf_token %}
-          <!-- <input type="textarea" id="input1" placeholder="&nbsp;내용을 입력하세요.."> -->
-          <textarea id="input1"cols="75" rows="10" name="content" placeholder="&nbsp;내용을 입력하세요.." ></textarea>
-          <!-- <input type="submit" id="submit1" value="입력"> -->
-          <button id="submit1" onclick="button1_click();">제출</button>
-    </form>
+          <input type="textarea" id="input1" placeholder="&nbsp;내용을 입력하세요.."> 
+    </form> -->
+    <textarea id="input1"cols="75" rows="10" name="content" placeholder="&nbsp;내용을 입력하세요.." ></textarea>
+    <!-- <input type="submit" id="submit1" value="입력"> -->
+    <button type="button" id="submit1" onclick="button1_click();">제출</button>
     <script>
+
     function button1_click() {
-       var q = document.getElementById("input1");
-       console.log(q)
-       axios.post('http://127.0.0.1:5000/query/TEST',{
-            'query' : q
-        })
-        .then(function (response){
-            console.log(response);
-        })
-        .catch(function(error){
-            console.log(error);
-        })
-    }
+            var q = document.getElementById('input1');
+            console.log(q.value);
+            axios.post('http://127.0.0.1:5000/query/TEST',{
+                 'query' : q
+             })
+             .then(function (response){
+                 console.log(response);
+             })
+             .catch(function(error){
+                 console.log(error);
+             })
+        }
+
     </script>
 {% endblock %}

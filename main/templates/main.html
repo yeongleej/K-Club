@@ -8,15 +8,54 @@
     <main>
         <div class="main-container">
             <div class="temp-box box-one">
-                <div class="title-fff"><a href="#">전체 공지사항 +</a></div>
-                <div class="border-fff"></div>
+                <div class="title-fff"><a href="{% url 'club:notice_index' %}">전체 공지사항 +</a></div>
+                <div class="border-fff">
+                    <table class="table">
+                        <tbody>
+                            {% for notice in notices %}
+                            <tr>
+                                <td><a href="{% url 'club:board_detail' id=notice.id %}">{{notice.title}}</a></td>
+                                <td>{{notice.written_at.month}}/{{notice.written_at.day}}&nbsp;{{notice.written_at.hour}}:{{notice.written_at.minute}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 <div class="gap-box"></div>
-                <div class="title-fff"><a href="#">커뮤니티 인기글 +</a></div>
-                <div class="border-fff"></div>    
+                <div class="title-fff"><a href="{% url 'club:freeBoard_index' %}">커뮤니티 인기글 +</a></div>
+                <div class="border-fff">
+                    <table class="table">
+                        <tbody>
+                            {% for board in boards %}
+                            <tr>
+                                {% if board.topic == 'free' %}
+                                <td>[자유]</td>
+                                {% elif board.topic == 'info' %}
+                                <td>[정보]</td>
+                                {% elif board.topic == 'promo' %}
+                                <td>[홍보]</td>
+                                {% endif %}
+                                <td><a href="{% url 'club:board_detail' id=board.id %}">{{board.title}}</a></td>
+                                <td>{{board.written_at.month}}/{{board.written_at.day}}&nbsp;{{board.written_at.hour}}:{{board.written_at.minute}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>    
             </div>
             <div class="temp-box box-two">
-                <div class="title-fff"><a href="#">동아리 리스트 +</a></div>
-                <div class="border-fff"></div>
+                <div class="title-fff"><a href="{% url 'club:club_list' %}">동아리 리스트 +</a></div>
+                <div class="border-fff">
+                    <table class="table">
+                        <tbody>
+                            {% for club in clubs_info%}
+                            <tr>
+                                <td><a href="{% url 'club:club_home' cName=club.name %}" >{{club.name}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="temp-box box-three">
                 <div class="title-fff"></div>
@@ -35,7 +74,7 @@
                     </ul>
                 </div>
                 <div class="gap-box"></div>
-                <div class="title-fff"><a href="#">행사일정 +</a></div>
+                <div class="title-fff"><a href="{% url 'club:event_calendar' %}">행사일정 +</a></div>
                 <div class="border-fff" style="border: none;">
                     <div id="calendar">
                         <div id="calendar_header"><i class="icon-chevron-left" style="font-weight: bold; font-size: 28px;"> < </i>
@@ -52,22 +91,61 @@
     <main>
         <div class="main-container">
             <div class="temp-box box-one">
-                <div class="title-fff" style=" text-decoration: none;"><a href="#">전체 공지사항 +</a></div>
-                <div class="border-fff"></div>
+                <div class="title-fff"><a href="{% url 'club:notice_index' %}">전체 공지사항 +</a></div>
+                <div class="border-fff">
+                    <table class="table">
+                        <tbody>
+                            {% for notice in notices %}
+                            <tr>
+                                <td><a href="{% url 'club:board_detail' id=notice.id %}">{{notice.title}}</a></td>
+                                <td>{{notice.written_at.month}}/{{notice.written_at.day}}&nbsp;{{notice.written_at.hour}}:{{notice.written_at.minute}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 <div class="gap-box"> </div>
-                <div class="title-fff"><a href="#">커뮤니티 인기글 +</a></div>
-                <div class="border-fff"></div>    
+                <div class="title-fff"><a href="{% url 'club:freeBoard_index' %}">커뮤니티 인기글 +</a></div>
+                <div class="border-fff">
+                    <table class="table">
+                        <tbody>
+                            {% for board in boards %}
+                            <tr>
+                                {% if board.topic == 'free' %}
+                                <td>[자유]</td>
+                                {% elif board.topic == 'info' %}
+                                <td>[정보]</td>
+                                {% elif board.topic == 'promo' %}
+                                <td>[홍보]</td>
+                                {% endif %}
+                                <td><a href="{% url 'club:board_detail' id=board.id %}">{{board.title}}</a></td>
+                                <td>{{board.written_at.month}}/{{board.written_at.day}}&nbsp;{{board.written_at.hour}}:{{board.written_at.minute}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>  
             </div>
             <div class="temp-box box-two">
-                <div class="title-fff"><a href="#">동아리 리스트 +</a></div>
-                <div class="border-fff"></div>
+                <div class="title-fff"><a href="{% url 'club:club_list' %}">동아리 리스트 +</a></div>
+                <div class="border-fff">
+                    <table class="table">
+                        <tbody>
+                            {% for club in clubs_info%}
+                            <tr>
+                                <td><a href="{% url 'club:club_home' cName=club.name %}" >{{club.name}}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="temp-box box-three">
                 <div class="title-fff"></div>
                 <div class="border-fff"></div>
                 <div class="gap-box"> </div>
-                <div class="title-fff"><a href="#">행사일정 +</a></div>
+                <div class="title-fff"><a href="{% url 'club:event_calendar' %}">행사일정 +</a></div>
                 <div class="border-fff" style="border: none;">
                     <div id="calendar">
                         <div id="calendar_header"><i class="icon-chevron-left" style="font-weight: bold; font-size: 28px;"> < </i>

@@ -1,4 +1,5 @@
 from contextlib import redirect_stderr
+from dataclasses import field
 from re import S
 from turtle import fd
 from unicodedata import name
@@ -116,7 +117,7 @@ def board_update(request, id):
         board.title = request.POST['title']
         board.content = request.POST['content']
         board.save()
-        return render(request, 'board_detail.html', {'board':board})
+        return redirect('club:board_detail', id=board.id)
     return render(request, 'board_update.html', {'board':board, 'member':member})
 
 def board_delete(request, id):
@@ -170,6 +171,11 @@ def event_thisMonth(request):
 def club_list(request):
     clubs_info = Club_Info.objects.all()
     #clubs = Club.objects.values_list('name', flat=True).distinct()
+    if request.method == 'POST':
+        field = request.POST['field']
+        if (field == '전체'): return render(request, 'club_list.html', {'clubs_info': clubs_info})
+        clubs_info = Club_Info.objects.filter(field=field)
+        return render(request, 'club_list.html', {'clubs_info': clubs_info})
     return render(request, 'club_list.html', {'clubs_info': clubs_info})
 
 def myClub_list(request):
@@ -178,7 +184,11 @@ def myClub_list(request):
         user = User.objects.get(pk=user_id)
         member = Member.objects.get(user=user)
         clubs = Club.objects.filter(member=member)
-        return render(request, 'myClub_list.html', {'clubs':clubs})
+        clubList = []
+        for c in clubs:
+            clubList.append(c.name)
+        clubs_info = Club_Info.objects.filter(name__in=clubList)
+        return render(request, 'myClub_list.html', {'clubs':clubs_info})
     return redirect('accounts:login')
 
 def club_home(request, cName):
@@ -306,7 +316,7 @@ def club_schedule_update(request, id):
         schedule.content = request.POST['content']
         schedule.image_url = request.FILES.get('image', None)
         schedule.save()
-        return render(request, 'club_schedule_detail.html', {'schedule':schedule})
+        return redirect('club:club_schedule_detail', id=schedule.id)
     return render(request, 'club_schedule_update.html', {'schedule':schedule})
 
 def club_schedule_delete(request, id):

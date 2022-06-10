@@ -2,24 +2,21 @@
 {% load static %}
 {% block title %}{% endblock %}
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <div id="wrap">
         <main>
             <div class="chatbot top-bar">문의 > 챗봇</div>
             <div class="main-container-chatbot">
                 <div class="chatbot-box box-0004">
-                    <div class="chatbot-box-answer">
+                    <div class="chatbot-box-answer" id="chatbot-box-answer">
                         <div class="box-000">
                             <div class="chatbot-img"><img src="{% static 'img/chatbot.png' %}"></div>
-                            <div class="box-001">무엇이 궁금하신가요? 제가 대답해드릴게요!</div>
+                            <div class="box-001" id="response">무엇이 궁금하신가요? 제가 대답해드릴게요!</div>
                         </div>
-                        <div class="box-002">
-                            <div class="box-001">내용을 입력하세요..</div>
+                        <!-- <div class="box-002">
+                            <div class="box-001" id="input-message"></div>
                             <div class="chatbot-img"><img src="{% static 'img/user1.png' %}"></div>
-                        </div>
-                        <div class="box-000">
-                            <div class="chatbot-img"><img src="{% static 'img/chatbot.png' %}"></div>
-                            <div class="box-001">답변을 출력중입니다...</div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="chatbot-box-inquiry">
                         <div class="chatbot-auto-inquiry">
@@ -31,7 +28,7 @@
                                         </div>
                                         <div class="group">
                                             <div class="box-003">피아노사랑 설명</div>
-                                            <div class="box-003"style="margin-left: -29%;">피아노사랑 행사 언제 해?</div>
+                                            <div class="box-003"style="margin-left: -30%;">피아노사랑 행사 언제 해?</div>
                                         </div>
                                     </div>
                                     <div class="gap-box" style="flex: 1; width: 0"></div>
@@ -56,28 +53,66 @@
             </div>
         </main>
     </div>
-    <!-- <form id="form">
-        {% csrf_token %}
-          <input type="textarea" id="input1" placeholder="&nbsp;내용을 입력하세요.."> 
-    </form> -->
-    <textarea id="input1"cols="75" rows="10" name="content" placeholder="&nbsp;내용을 입력하세요.." ></textarea>
-    <!-- <input type="submit" id="submit1" value="입력"> -->
-    <button type="button" id="submit1" onclick="button1_click();">제출</button>
-    <script>
+          <!-- <input type="textarea" id="input1" placeholder="&nbsp;내용을 입력하세요.."> -->
+          <!-- <input type="submit" id="submit1" value="입력"> -->
+        <div class="inquiry-Submit">
+            <textarea id="input1" cols="25" rows="10" name="content" placeholder="&nbsp;내용을 입력하세요.." ></textarea>
+            <button type="button" id="submit1" onclick="button1_click();">제출</button>
+        </div>
+        <input type="button" class="box-003" id="question" value="빠샤 인원 수가 몇 명인가요?" onclick="question_click();">
 
+    <script>
+    function question_click(){
+        var question1 = document.getElementById("question");
+        var question2 = document.getElementById("input1");
+        question2.value = question1.value;
+
+    }
     function button1_click() {
-            var q = document.getElementById('input1');
-            console.log(q.value);
-            axios.post('http://127.0.0.1:5000/query/TEST',{
-                 'query' : q
-             })
-             .then(function (response){
-                 console.log(response);
-             })
-             .catch(function(error){
-                 console.log(error);
-             })
-        }
+        const q = document.getElementById("input1");
+        const input_box = document.createElement('div');
+        const input_img_div = document.createElement('div');
+        const input_img = document.createElement('img');
+        const input_message = document.createElement('div');
+        const newInput = document.createTextNode(q.value);
+        input_box.className = "box-002";
+        input_message.className = "box-001";
+        input_message.id = "input-message";
+        input_img_div.className = "chatbot-img";
+        input_img.src = "{% static 'img/user1.png' %}";
+        input_message.appendChild(newInput);
+        input_img_div.appendChild(input_img);
+        input_box.appendChild(input_message);
+        input_box.appendChild(input_img_div);
+        document.querySelector('.chatbot-box-answer').appendChild(input_box);
+        console.log(newInput);
+        
+        axios.post('http://127.0.0.1:5000/query/TEST',{
+            'query' : q.value
+        })
+        .then(function (response){
+            const response_box = document.createElement('div');
+            const response_img_div = document.createElement('div');
+            const response_img = document.createElement('img');
+            const response_message = document.createElement('div');
+            const newResponse = document.createTextNode(response.data.Answer);
+            response_box.className = "box-000";
+            response_img_div.className = "chatbot-img";
+            response_img.src = "{% static 'img/chatbot.png' %}"
+            response_message.className = "box-001";
+            response_message.id = "response";
+            response_message.appendChild(newResponse);
+            response_img_div.appendChild(response_img);
+            response_box.appendChild(response_img_div);
+            response_box.appendChild(response_message);
+            document.querySelector('.chatbot-box-answer').appendChild(response_box);
+            console.log(response);
+            //document.getElementById('response').innerHTML =response.data.Answer;
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+    }
 
     </script>
 {% endblock %}

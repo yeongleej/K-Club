@@ -3,35 +3,82 @@
 {% block title %}Club List{% endblock %}
 {% block content %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/club_list.css' %}">
-    <div class="app-form">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/club_list.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+    <style>
+      .l-btn{
+        width: 70px;
+        height: 30px;
+        font-size: 20px;
+        font-weight: 700;
+        color: white;
+        background-color: coral;
+        text-align: center;
+        margin-top: 5px;
+        margin-left: 5px;
+      }
+      .tag-form{
+        width: 1100px;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 10px;
+        padding-left: 100px;
+        padding-right: 100px;
+      }
+      .f-btn{
+        border: none;
+        border-radius: 5px;
+        width: 80px;
+        height: 40px;
+        font-size: 20px;
+        font-weight: 700;
+        color: black;
+        background-color: #ccc;
+        text-align: center;
+        margin-top: 5px;
+        margin-left: 5px;
+        padding: 5px;
+      }
+      .f-btn:hover{
+        color: white;
+        background-color: #4D77FF;
+      }
+    </style>
+    <div class="letter-head" style="width:1100px;">
         <ul>
-            <p class = "app-title">[ 동아리 리스트 ]</p>
+            <h3 class = "letter-title" style="font-weight: bold;">K-Club List</h3>
+            <hr>
         </ul>
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">동아리 명</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for club in clubs_info %}
-              <tr>
-                <td>{{club.name}}</td>
-                <td>
-                    <a href="{% url 'club:club_application' cName=club.name %}">가입하기</a>
-                </td>
-                <td>
-                    <a href="{% url 'club:club_home' cName=club.name %}">동아리 홈페이지 가기</a>
-                </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+    </div>
+    <div class="tag-form">
+      <form method="post">
+        {% csrf_token %}
+        <ul>
+          <li style="float: left;"><input class="f-btn" type="submit" name="field" value="공연"></li>
+          <li style="float: left; margin-left: 70px;"><input class="f-btn" type="submit" name="field" value="운동"></li>
+          <li style="float: left; margin-left: 70px;"><input class="f-btn" type="submit" name="field" value="종교"></li>
+          <li style="float: left; margin-left: 70px;"><input class="f-btn" type="submit" name="field" value="취미"></li>
+          <li style="float: left; margin-left: 70px;"><input class="f-btn" type="submit" name="field" value="학술"></li>
+          <li style="float: left; margin-left: 70px;"><input class="f-btn" type="submit" name="field" value="전체" style="color: white;"></li>
+        </ul>
+      </form>
 
-
+    </div>
+    <div class="mypage-form" style="width: 1115px; background-color: white;">   
+      <ul>
+        {% for club in clubs_info %}
+        <li style="float: left; border: 2px solid #ccc; margin: 10px; padding: 10px; text-align: center;">
+          <p style="font-size: 18px; font-weight: 900; text-align: center;">{{club.name}}</p>
+          <a href="{% url 'club:club_home' cName=club.name %}">
+            {% if club.image_url %}
+            <img src="{{club.image_url.url}}" width = "121" height="115">
+            {% endif %}
+            <br>
+            <a href="{% url 'club:club_application' cName=club.name %}" style="float: left;"><p class="l-btn">가입</p></a> <a href="{% url 'club:club_home' cName=club.name %}" style="float: left;"><p class="l-btn">동홈</p></a>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
 
 {% endblock %}

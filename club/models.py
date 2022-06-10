@@ -9,7 +9,7 @@ class Club(models.Model):
     name = models.CharField(max_length=100)
     member = models.ForeignKey('accounts.Member', on_delete=models.CASCADE)
     is_manager = models.BooleanField(default=False)
-    field = models.CharField(max_length=100)
+    #field = models.CharField(max_length=100)
     # description = models.TextField(max_length=1000, blank=True)
     image_url = models.ImageField(blank=True)
 
@@ -23,6 +23,7 @@ class Club_Info(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(max_length=1000, blank=True)
+    field = models.CharField(max_length=100, blank=True, null=True)
     image_url = models.ImageField(upload_to='images/',blank=True, null=True)
     def __str__(self):
         return self.name

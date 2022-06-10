@@ -28,13 +28,6 @@
                         <tbody>
                             {% for board in boards %}
                             <tr>
-                                {% if board.topic == 'free' %}
-                                <td>[자유]</td>
-                                {% elif board.topic == 'info' %}
-                                <td>[정보]</td>
-                                {% elif board.topic == 'promo' %}
-                                <td>[홍보]</td>
-                                {% endif %}
                                 <td><a href="{% url 'club:board_detail' id=board.id %}">{{board.title}}</a></td>
                                 <td>{{board.written_at.month}}/{{board.written_at.day}}&nbsp;{{board.written_at.hour}}:{{board.written_at.minute}}</td>
                             </tr>
@@ -46,7 +39,7 @@
             <div class="temp-box box-two">
                 <div class="title-fff"><a href="{% url 'club:club_list' %}">동아리 리스트 +</a></div>
                 <div class="border-fff">
-                    <table class="table">
+                    <!-- <table class="table">
                         <tbody>
                             {% for club in clubs_info%}
                             <tr>
@@ -54,7 +47,12 @@
                             </tr>
                             {% endfor %}
                         </tbody>
-                    </table>
+                    </table> -->
+                    <ul>
+                        {% for club in clubs_info %}
+                        <li style="float: left; border: 2px solid #ccc;"><a href="{% url 'club:club_home' cName=club.name %}"><img src="{{club.image_url.url}}" width = "121" height="115"><br>{{club.name}}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
             <div class="temp-box box-three">
@@ -111,13 +109,6 @@
                         <tbody>
                             {% for board in boards %}
                             <tr>
-                                {% if board.topic == 'free' %}
-                                <td>[자유]</td>
-                                {% elif board.topic == 'info' %}
-                                <td>[정보]</td>
-                                {% elif board.topic == 'promo' %}
-                                <td>[홍보]</td>
-                                {% endif %}
                                 <td><a href="{% url 'club:board_detail' id=board.id %}">{{board.title}}</a></td>
                                 <td>{{board.written_at.month}}/{{board.written_at.day}}&nbsp;{{board.written_at.hour}}:{{board.written_at.minute}}</td>
                             </tr>
@@ -129,15 +120,11 @@
             <div class="temp-box box-two">
                 <div class="title-fff"><a href="{% url 'club:club_list' %}">동아리 리스트 +</a></div>
                 <div class="border-fff">
-                    <table class="table">
-                        <tbody>
-                            {% for club in clubs_info%}
-                            <tr>
-                                <td><a href="{% url 'club:club_home' cName=club.name %}" >{{club.name}}</a></td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <ul>
+                        {% for club in clubs_info %}
+                        <li style="float: left; border: 2px solid #ccc;"><a href="{% url 'club:club_home' cName=club.name %}"><img src="{{club.image_url.url}}" width = "121" height="115"><br>{{club.name}}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
 

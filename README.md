@@ -8,10 +8,11 @@
 <img src="https://user-images.githubusercontent.com/81922339/230767751-d0f465f5-ce9d-4c9b-a6f0-993fe55360ba.png"/>
 
 <실시간 채팅>
-<img src=""/>
+<img src="https://user-images.githubusercontent.com/81922339/230767825-c443d16e-6665-47f5-8f1a-0a77fb145781.png"/>
 
 <동아리 페이지>
-<img src=""/>
+<img src="https://user-images.githubusercontent.com/81922339/230767829-2393de84-d75c-44a9-9d7c-601be84f734b.png"/>
 
 <행사 일정(캘린더)>
-<img src=""/>
+<img src="https://user-images.githubusercontent.com/81922339/230767831-30fb730f-77b5-42b1-b182-5e25137c0289.png"/>
+
